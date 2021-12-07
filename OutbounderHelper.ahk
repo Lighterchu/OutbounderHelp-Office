@@ -30,7 +30,18 @@ Gui, Outbounder: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Plea
     Gui, Outbounder: Add, DropDownList, r2 vVoip, |Casual $0|Everday $10|International $20|
     Gui, Outbounder: Add, Text, section xm w80 vMyDateTimeTitle,Callback:
     Gui, Outbounder: Add, DateTime, vMyDateTime, dd/MM/yyyy
-------------------------------------------------------------------------
+;------------------------------------------------------------------------
+
+
+;--------------Relocation Main Fields -----------------------------
+    Gui, Outbounder: Add, Text, section xm w80 y50 vReloCustNameTitle,Customer Name:
+    Gui, Outbounder: Add, Edit, vReloCustName w200 ys
+    Gui, Outbounder: Add, Text, section xm w80 y80 vReloOlderAddressTitle,Current Address:
+    Gui, Outbounder: Add, Edit, vReloOlderAddress w200 ys
+   
+
+;------------------------------------------------------------------------
+
 
 ;-------------all for the Notes template---------
     ;---Text boxs------
@@ -63,7 +74,7 @@ Gui, Outbounder: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Plea
     GuiControl, Outbounder: Hide, staffTitle
     ;-------------------------------------
     ;-----Buttons----------------
-    Gui, Outbounder: Add, Button, gOutboundersButtonOk vOk w100, Ok
+    Gui, Outbounder: Add, Button, gOutboundersButtonOk vOk y125 w90 x170, Ok
     Gui, Outbounder: Add, Button, gOutboundersButtonClear vClear w90 x110, Clear
     Gui, Outbounder: Add, Button, gOutboundersButtonClose vCls w100 x200, Close
     Gui, Outbounder: Add, Button, gOutboundersButtonSettings vSettings y125 w100 x0, Settings
@@ -128,8 +139,89 @@ OutboundersButtonClose:
 }
 Movs:
         GuiControlGet, Temp,
+        if ( Temp = 1){
+                GuiControl,Hide, ReloCustName
+                GuiControl,Hide, ReloNewAddress
+                GuiControl,Hide, ReloOlderAddress
+                
+            
+                
+                GuiControl,Hide, ReloCustNameTitle
+                GuiControl,Hide, ReloNewAddressTitle
+                GuiControl,Hide, ReloOlderAddressTitle
+                
+
+                GuiControl,Hide, CustNameTitle
+                GuiControl,Hide, CommentTitle
+                GuiControl,Hide, HoldSale
+                GuiControl,Hide, PlansTitle
+                GuiControl,Hide, TheISPTitle
+                GuiControl,Hide, MobliesTitle
+                GuiControl,hide, MobliesWithNoInternetTitle
+                GuiControl,Hide, FetchTitle
+                GuiControl,Hide, ModemTitle
+                GuiControl,Hide, VoipTitle
+                GuiControl,Hide, MyDateTimeTitle
+                                
+                
+                
+                GuiControl, Hide, CustName
+                GuiControl, Hide, Comment
+                GuiControl, Hide, HoldSale
+                GuiControl, Hide, Plans
+                GuiControl, Hide, TheISP
+                GuiControl, Hide, Moblies
+                GuiControl, Hide, MobliesWithNoInternet
+                GuiControl, Hide, HaveInternet
+                GuiControl, Hide, Fetch
+                GuiControl, Hide, Modem
+                GuiControl, Hide, Voip
+                GuiControl, Hide, MyDateTime
+
+               
+                
+                GuiControl, Hide, Sub
+                GuiControl, Move, Clear, y50
+                GuiControl, Move, Cls, y50
+                
+                ;when update is a thing not yet
+                
+        }
+
+
         ;Relocation
         if ( Temp = 2) {
+
+                ;making sure that we dont show the other templates
+                GuiControl, Outbounder: Hide, CustNameTitle
+                GuiControl, Outbounder: Hide, CommentTitle
+                GuiControl, Outbounder: Hide, HoldSale
+                GuiControl, Outbounder: Hide, PlansTitle
+                GuiControl, Outbounder: Hide, TheISPTitle
+                GuiControl, Outbounder: Hide, MobliesTitle
+                GuiControl, Outbounder: hide, MobliesWithNoInternetTitle
+                GuiControl, Outbounder: Hide, FetchTitle
+                GuiControl, Outbounder: Hide, ModemTitle
+                GuiControl, Outbounder: Hide, VoipTitle
+                GuiControl, Outbounder: Hide, MyDateTimeTitle
+                                
+                
+                
+                GuiControl, Hide, CustName
+                GuiControl, Hide, Comment
+                GuiControl, Hide, HoldSale
+                GuiControl, Hide, Plans
+                GuiControl, Hide, TheISP
+                GuiControl, Hide, Moblies
+                GuiControl, Hide, MobliesWithNoInternet
+                GuiControl, Hide, HaveInternet
+                GuiControl, Hide, Fetch
+                GuiControl, Hide, Modem
+                GuiControl, Hide, Voip
+                GuiControl, Hide, MyDateTime
+
+
+
         
         GuiControl, Outbounder: show, ReloCustName
         GuiControl, Outbounder: show, ReloNewAddress
@@ -140,18 +232,75 @@ Movs:
         GuiControl, Outbounder: show, ReloCustNameTitle
         GuiControl, Outbounder: show, ReloNewAddressTitle
         GuiControl, Outbounder: show, ReloOlderAddressTitle
+
+
+        GuiControl, Move, Ok, y170 x110
+        GuiControl, Move, Cls, y570
+        GuiControl, Move, Clear, y125
+
+        Gui, Show, Autosize, Outbounder Helper
+        return
         }
 
-        if Temp = 3
+        if ( Temp = 3 ) 
             {
-                GuiControl, Move, Ok, y140
-                GuiControl, Move, Cls, y240
-            }
-        ;Taking Notes     
-        if Temp = 4
-            {   
+
+                         GuiControl,Hide, ReloCustName
+                GuiControl,Hide, ReloNewAddress
+                GuiControl,Hide, ReloOlderAddress
+                
             
                 
+                GuiControl,Hide, ReloCustNameTitle
+                GuiControl,Hide, ReloNewAddressTitle
+                GuiControl,Hide, ReloOlderAddressTitle
+                
+
+                GuiControl,Hide, CustNameTitle
+                GuiControl,Hide, CommentTitle
+                GuiControl,Hide, HoldSale
+                GuiControl,Hide, PlansTitle
+                GuiControl,Hide, TheISPTitle
+                GuiControl,Hide, MobliesTitle
+                GuiControl,hide, MobliesWithNoInternetTitle
+                GuiControl,Hide, FetchTitle
+                GuiControl,Hide, ModemTitle
+                GuiControl,Hide, VoipTitle
+                GuiControl,Hide, MyDateTimeTitle
+                                
+                
+                
+                GuiControl, Hide, CustName
+                GuiControl, Hide, Comment
+                GuiControl, Hide, HoldSale
+                GuiControl, Hide, Plans
+                GuiControl, Hide, TheISP
+                GuiControl, Hide, Moblies
+                GuiControl, Hide, MobliesWithNoInternet
+                GuiControl, Hide, HaveInternet
+                GuiControl, Hide, Fetch
+                GuiControl, Hide, Modem
+                GuiControl, Hide, Voip
+                GuiControl, Hide, MyDateTime
+
+               
+                
+                GuiControl, Hide, Sub
+                return
+            }
+        ;Taking Notes     
+        if  ( Temp = 4 )
+            {   
+            
+                GuiControl, Hide, ReloCustName
+                GuiControl, Hide, ReloNewAddress
+                GuiControl, Hide, ReloOlderAddress
+                
+            
+                
+                GuiControl,  Hide, ReloCustNameTitle
+                GuiControl,  Hide, ReloNewAddressTitle
+                GuiControl,  Hide, ReloOlderAddressTitle
                 
                 
                 
@@ -184,9 +333,9 @@ Movs:
             
                     
             
-                GuiControl, Move, Ok, y570
-                GuiControl, Move, Cls, y570
-                GuiControl, Move, Clear, y570
+                GuiControl, Move, Ok, x350 y570
+                GuiControl, Move, Cls, x90 y570
+                GuiControl, Move, Clear, x0 y570
                 GuiControl, +Redraw, Ok
                 Gui, Show, Autosize, Outbounder Helper
                 
@@ -194,17 +343,30 @@ Movs:
             }
             
     else        
-                GuiControl, Outbounder: Hide, CustNameTitle
-                GuiControl, Outbounder: Hide, CommentTitle
-                GuiControl, Outbounder: Hide, HoldSale
-                GuiControl, Outbounder: Hide, PlansTitle
-                GuiControl, Outbounder: Hide, TheISPTitle
-                GuiControl, Outbounder: Hide, MobliesTitle
-                GuiControl, Outbounder: hide, MobliesWithNoInternetTitle
-                GuiControl, Outbounder: Hide, FetchTitle
-                GuiControl, Outbounder: Hide, ModemTitle
-                GuiControl, Outbounder: Hide, VoipTitle
-                GuiControl, Outbounder: Hide, MyDateTimeTitle
+
+
+                GuiControl,Hide, ReloCustName
+                GuiControl,Hide, ReloNewAddress
+                GuiControl,Hide, ReloOlderAddress
+                
+            
+                
+                GuiControl,Hide, ReloCustNameTitle
+                GuiControl,Hide, ReloNewAddressTitle
+                GuiControl,Hide, ReloOlderAddressTitle
+                
+
+                GuiControl,Hide, CustNameTitle
+                GuiControl,Hide, CommentTitle
+                GuiControl,Hide, HoldSale
+                GuiControl,Hide, PlansTitle
+                GuiControl,Hide, TheISPTitle
+                GuiControl,Hide, MobliesTitle
+                GuiControl,hide, MobliesWithNoInternetTitle
+                GuiControl,Hide, FetchTitle
+                GuiControl,Hide, ModemTitle
+                GuiControl,Hide, VoipTitle
+                GuiControl,Hide, MyDateTimeTitle
                                 
                 
                 
@@ -220,7 +382,8 @@ Movs:
                 GuiControl, Hide, Modem
                 GuiControl, Hide, Voip
                 GuiControl, Hide, MyDateTime
-                
+
+               
                 
                 GuiControl, Hide, Sub
                 GuiControl, Move, Ok, y50
