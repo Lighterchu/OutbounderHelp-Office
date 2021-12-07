@@ -38,6 +38,8 @@ Gui, Outbounder: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Plea
     Gui, Outbounder: Add, Edit, vReloCustName w200 ys
     Gui, Outbounder: Add, Text, section xm w80 y80 vReloOlderAddressTitle,Current Address:
     Gui, Outbounder: Add, Edit, vReloOlderAddress w200 ys
+    Gui, Outbounder: Add, Text, section xm w80 y120 vReloNewAddressTitle,New Address:
+    Gui, Outbounder: Add, Edit, vReloNewAddress w200 ys
    
 
 ;------------------------------------------------------------------------
@@ -224,19 +226,23 @@ Movs:
 
         
         GuiControl, Outbounder: show, ReloCustName
-        GuiControl, Outbounder: show, ReloNewAddress
         GuiControl, Outbounder: show, ReloOlderAddress
+        GuiControl, Outbounder: show, ReloNewAddress
+       
         
        
         
         GuiControl, Outbounder: show, ReloCustNameTitle
-        GuiControl, Outbounder: show, ReloNewAddressTitle
         GuiControl, Outbounder: show, ReloOlderAddressTitle
+        GuiControl, Outbounder: show, ReloNewAddressTitle
+       
 
 
-        GuiControl, Move, Ok, y170 x110
-        GuiControl, Move, Cls, y570
-        GuiControl, Move, Clear, y125
+        GuiControl, Move, Ok, y190 x120
+        GuiControl, Move, Cls, y160 x219
+        GuiControl, Move, Clear, y160 x120
+        GuiControl, Move, Settings, y160 x10
+       
 
         Gui, Show, Autosize, Outbounder Helper
         return
@@ -336,6 +342,7 @@ Movs:
                 GuiControl, Move, Ok, x350 y570
                 GuiControl, Move, Cls, x90 y570
                 GuiControl, Move, Clear, x0 y570
+                GuiControl, Move, Settings, y120 x1
                 GuiControl, +Redraw, Ok
                 Gui, Show, Autosize, Outbounder Helper
                 
