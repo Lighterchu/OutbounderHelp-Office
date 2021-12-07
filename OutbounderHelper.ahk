@@ -103,12 +103,18 @@ NotesButtonClose:
 }
 Movs:
         GuiControlGet, Temp,
+        ;Relocation
+        if ( Temp = 2) {
+                GuiControl, Move, Ok, y140
+                GuiControl, Move, Cls, y10
+        }
+
         if Temp = 3
             {
                 GuiControl, Move, Ok, y140
                 GuiControl, Move, Cls, y240
             }
-            
+        ;Taking notes     
         if Temp = 4
             {   
             
@@ -230,7 +236,10 @@ MobileHaveInternetCheckBox:
     
 }
 NotesButtonOk:
-if Temp = 4
+if (Temp = 2) {
+    msgBox, this is for relo
+}
+if ( Temp = 4 )
 {   GuiControlGet ,CustName
     GuiControlGet ,Comment
     GuiControlGet ,HoldSale
@@ -283,37 +292,40 @@ if Temp = 4
     }
 }
         
-Gui, 2:Color, CAE1ED
-FormatTime, Dat1, %MyDateTime%, MMMM d yyyy
-theMainComment= % JEE_StrWrap(text, 50)
-Full =  %name%----------------COMMENTS----------------------------`n%theMainComment% `n---------------Aussie Broadband Quote-------- `n%plan%%Isp%%mobiles%%notInternetM%%fetch%%modem%%voip%CallBack:%Dat1%`n%keepSale% `n -----------------------------------------------------------              
- 
-Gui, 2:Add, Edit, +Wrap w780 vResults, %Full%
-Gui, 2:Font, S8 C888888, Arial
-Gui, 2:Add, Text, x20 y+15 vResultsTxt +BackgroundTrans, Press copy button to save to clipbord, once done ctrl v into Widesales 2.0 notes section.
-Gui, 2:Add, Button, w105 h32 x686 yp-7 gCopy1 vCopy, Copy to Clipboard
-Gui, 2:Add, Button, w70 h32 x605 yp+0 gClose1 vClose1, Close
-GuiControl, 2:Focus, Copy
-Gui, 2:Font, S8 C555555, Arial
-gui 2:+AlwaysOnTop
-Gui, 2:Show, w800, Results
-return
+    Gui, 2:Color, CAE1ED
+    FormatTime, Dat1, %MyDateTime%, MMMM d yyyy
+    theMainComment= % JEE_StrWrap(text, 50)
+    Full =  %name%----------------COMMENTS----------------------------`n%theMainComment% `n---------------Aussie Broadband Quote-------- `n%plan%%Isp%%mobiles%%notInternetM%%fetch%%modem%%voip%CallBack:%Dat1%`n%keepSale% `n -----------------------------------------------------------              
+    
+    Gui, 2:Add, Edit, +Wrap w780 vResults, %Full%
+    Gui, 2:Font, S8 C888888, Arial
+    Gui, 2:Add, Text, x20 y+15 vResultsTxt +BackgroundTrans, Press copy button to save to clipbord, once done ctrl v into Widesales 2.0 notes section.
+    Gui, 2:Add, Button, w105 h32 x686 yp-7 gCopy1 vCopy, Copy to Clipboard
+    Gui, 2:Add, Button, w70 h32 x605 yp+0 gClose1 vClose1, Close
+    GuiControl, 2:Focus, Copy
+    Gui, 2:Font, S8 C555555, Arial
+    gui 2:+AlwaysOnTop
+    Gui, 2:Show, w800, Results
+    return
+
 NotesButtonSettings:
 {
     Gui, Settings:Color, CAE1ED
-Gui, Settings:Add, Text, w120, 
-Gui, Settings:Add, button, gSaveProgramPos , Save Current Position
-Gui, Settings:Add, Button, w70 h32 x605 yp+0 gSettingsClose1, Close
-Gui, Settings:Font, S8 C888888, Arial
-Gui, Settings:Font, S8 C555555, Arial
-Gui, Settings:+AlwaysOnTop
-Gui, Settings:Show, w300 h100, Settings
-return
+    Gui, Settings:Add, Text, w120, 
+    Gui, Settings:Add, button, gSaveProgramPos , Save Current Position
+    Gui, Settings:Add, Button, w70 h32 x605 yp+0 gSettingsClose1, Close
+    Gui, Settings:Font, S8 C888888, Arial
+    Gui, Settings:Font, S8 C555555, Arial
+    Gui, Settings:+AlwaysOnTop
+    Gui, Settings:Show, w300 h100, Settings
+    return
 }
+
 NotesButtonUpdate:
 {
-msgbox, pulling new update
+    msgbox, pulling new update
 }
+
 SaveProgramPos:
 {   
 	msgBox, saving location of Outbounder Helper
@@ -327,22 +339,27 @@ SaveProgramPos:
 
 	
 }
+
 SettingsClose1:
 {
     Gui Settings:Destroy
 }
+
 Copy1:
 Clipboard = %Full%
     Del = 
     Results = 
     Gui 2:Destroy
 return
+
 NotesButtonClear:
 Reload
 return
+
 Close1:
     Gui 2:Destroy
 return
+;-----Holding helpers ------;
 JEE_StrWrap(vText, vMaxLen, vNeedle:=" ", vSep:="`r`n")
         {
             local
