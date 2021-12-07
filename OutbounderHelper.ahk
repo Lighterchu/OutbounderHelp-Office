@@ -3,73 +3,98 @@
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-Gui, note: Add, Text, section xm w80, Template:
-Gui, note: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Please select a template|| Relocation | Address Update |Take Notes|
-Gui, note: Add, Text, section xm w80 vCustNameTitle,Customer Name:
-Gui, note: Add, Edit, vCustName w200 ys
-Gui, note: Add, Text, section xm w80 vCommentTitle, Comments:
-Gui, note: Add, Edit, vComment +Wrap w260 h100 ys
-Gui, note: Add, CheckBox, vHoldSale gHoldingSale, Tick this if you want to keep the sale and pass back to you?
-Gui, note: Add, Text, section xm w80 vstaffTitle, Staff ID:
-Gui, note: Add, Edit, vStaff w230 h20 ys
-Gui, note: Add, Text, section xm w80 vPlansTitle, NBN PLAN:
-Gui, note: Add, DropDownList, r5 vPlans w200,  |12/1 100GB + Casual VoIP Phone $50|12/1 Unlimited + Casual VoIP Phone|12/1 100GB + Casual VoIP Phone $60|12/1 $59 Base plan | 25/10 $60 100Gb | 25/10 $65 500GB| 25/10 $69 Unlimited| 50/20 $70 100GB| 50/20 $75 500GB| 50/20 Unlimited| 75/10 $79 Fixed Wireless | 75/20 $80 100GB| 75/20 $85 500GB| 75/20 $89 Unlimited| 100/20 $90 100GB| 100/20 $95 500GB| 100/20 $99 Unlimited| 100/40 $100 100GB| 100/40 $105 500GB| 100/40 $109 Unlimited| 250/25 $129 Unlimited| 1GIG/50 $149 Unlimited|                                                       
-Gui, note: Add, Text, section xm w80 vTheISPTitle,The ISP
-Gui, note: Add, DropDownList, r5 vTheISP,  |Telstra|TPG|OPTUS|DODO|Tangerine|Belong|Other|
-Gui, note: Add, CheckBox, vHaveInternet gMobileHaveInternetCheckBox,(Moblies) DO YOU HAVE AN INTERNET SERVICE WITH AUSSIE BROADBAND?
-Gui, note: Add, Text, section xm w80 vMobliesTitle, MOBILES 4G:
-Gui, note: Add, DropDownList, r5 vMoblies, |2GB $15|5GB $19|25GB $25|40GB $35|60GB $45|100GB $65|
-Gui, note: Add, Text, section xm w180 y320 vMobliesWithNoInternetTitle, MOBILES 4G With no Internet Plan:
-Gui, note: Add, DropDownList, r5 vMobliesWithNoInternet, |1GB $15|2.5GB $19|15GB $29|30GB $39|50GB $49| 80GB $69| 
-Gui, note: Add, Text, section xm w80 vFetchTitle, FETCH:
-Gui, note: Add, DropDownList, r2 vFetch, |Mini $10|Mighty $15|
-Gui, note: Add, Text, section xm w20 vModemTitle, MODEM: 
-Gui, note: Add, Edit, vModem w200 ys
-Gui, note: Add, Text, section xm w80 vVoipTitle, VOIP:
-Gui, note: Add, DropDownList, r2 vVoip, |Casual $0|Everday $10|International $20|
-Gui, note: Add, Text, section xm w80 vMyDateTimeTitle,Callback:
-Gui, note: Add, DateTime, vMyDateTime, dd/MM/yyyy
-        
-;---Text boxs------
-GuiControl, note: hide, CustName
-GuiControl, note: Hide, Comment
-GuiControl, note: Hide, HoldSale
-GuiControl, note: Hide, Plans
-GuiControl, note: Hide, TheISP
-GuiControl, note: Hide, Moblies
-GuiControl, note: Hide, MobliesWithNoInternet
-GuiControl, note: Hide, Fetch
-GuiControl, note: Hide, Modem
-GuiControl, note: Hide, Moblies
-GuiControl, note: Hide, Voip
-GuiControl, note: Hide, MyDateTime
-GuiControl, note: Hide, Staff
---------------------------
-;----Title for the txt boxs----
-GuiControl, note: Hide, CustNameTitle
-GuiControl, note: Hide, CommentTitle
-GuiControl, note: Hide, HoldSale
-GuiControl, note: Hide, PlansTitle
-GuiControl, note: Hide, TheISPTitle
-GuiControl, note: Hide, MobliesTitle
-GuiControl, note: Hide, MobliesWithNoInternetTitle
-GuiControl, note: Hide, FetchTitle
-GuiControl, note: Hide, ModemTitle
-GuiControl, note: Hide, VoipTitle
-GuiControl, note: Hide, MyDateTimeTitle
-GuiControl, note: Hide, staffTitle
-;-------------------------------------
-;-----Buttons----------------
-Gui, note: Add, Button, gNotesButtonOk vOk w100, Ok
-Gui, note: Add, Button, gNotesButtonClear vClear w90 x110, Clear
-Gui, note: Add, Button, gNotesButtonClose vCls w100 x200, Close
-Gui, note: Add, Button, gNotesButtonSettings vSettings y125 w100 x0, Settings
-gui note: add, Button, gNotesButtonUpdate vUpdates y100 w100 x0, update
-;-------------------------
+Gui, Outbounder: Add, Text, section xm w80, Template:
+Gui, Outbounder: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Please select a template|| Relocation | Address Update |Take Notes|
+;--------------Notes Main Fields -----------------------------
+    Gui, Outbounder: Add, Text, section xm w80 vCustNameTitle,Customer Name:
+    Gui, Outbounder: Add, Edit, vCustName w200 ys
+    Gui, Outbounder: Add, Text, section xm w80 vCommentTitle, Comments:
+    Gui, Outbounder: Add, Edit, vComment +Wrap w260 h100 ys
+    Gui, Outbounder: Add, CheckBox, vHoldSale gHoldingSale, Tick this if you want to keep the sale and pass back to you?
+    Gui, Outbounder: Add, Text, section xm w80 vstaffTitle, Staff ID:
+    Gui, Outbounder: Add, Edit, vStaff w230 h20 ys
+    Gui, Outbounder: Add, Text, section xm w80 vPlansTitle, NBN PLAN:
+    Gui, Outbounder: Add, DropDownList, r5 vPlans w200,  |12/1 100GB + Casual VoIP Phone $50|12/1 Unlimited + Casual VoIP Phone|12/1 100GB + Casual VoIP Phone $60|12/1 $59 Base plan | 25/10 $60 100Gb | 25/10 $65 500GB| 25/10 $69 Unlimited| 50/20 $70 100GB| 50/20 $75 500GB| 50/20 Unlimited| 75/10 $79 Fixed Wireless | 75/20 $80 100GB| 75/20 $85 500GB| 75/20 $89 Unlimited| 100/20 $90 100GB| 100/20 $95 500GB| 100/20 $99 Unlimited| 100/40 $100 100GB| 100/40 $105 500GB| 100/40 $109 Unlimited| 250/25 $129 Unlimited| 1GIG/50 $149 Unlimited|                                                       
+    Gui, Outbounder: Add, Text, section xm w80 vTheISPTitle,The ISP
+    Gui, Outbounder: Add, DropDownList, r5 vTheISP,  |Telstra|TPG|OPTUS|DODO|Tangerine|Belong|Other|
+    Gui, Outbounder: Add, CheckBox, vHaveInternet gMobileHaveInternetCheckBox,(Moblies) DO YOU HAVE AN INTERNET SERVICE WITH AUSSIE BROADBAND?
+    Gui, Outbounder: Add, Text, section xm w80 vMobliesTitle, MOBILES 4G:
+    Gui, Outbounder: Add, DropDownList, r5 vMoblies, |2GB $15|5GB $19|25GB $25|40GB $35|60GB $45|100GB $65|
+    Gui, Outbounder: Add, Text, section xm w180 y320 vMobliesWithNoInternetTitle, MOBILES 4G With no Internet Plan:
+    Gui, Outbounder: Add, DropDownList, r5 vMobliesWithNoInternet, |1GB $15|2.5GB $19|15GB $29|30GB $39|50GB $49| 80GB $69| 
+    Gui, Outbounder: Add, Text, section xm w80 vFetchTitle, FETCH:
+    Gui, Outbounder: Add, DropDownList, r2 vFetch, |Mini $10|Mighty $15|
+    Gui, Outbounder: Add, Text, section xm w20 vModemTitle, MODEM: 
+    Gui, Outbounder: Add, Edit, vModem w200 ys
+    Gui, Outbounder: Add, Text, section xm w80 vVoipTitle, VOIP:
+    Gui, Outbounder: Add, DropDownList, r2 vVoip, |Casual $0|Everday $10|International $20|
+    Gui, Outbounder: Add, Text, section xm w80 vMyDateTimeTitle,Callback:
+    Gui, Outbounder: Add, DateTime, vMyDateTime, dd/MM/yyyy
+------------------------------------------------------------------------
+
+;-------------all for the Notes template---------
+    ;---Text boxs------
+    GuiControl, Outbounder: hide, CustName
+    GuiControl, Outbounder: Hide, Comment
+    GuiControl, Outbounder: Hide, HoldSale
+    GuiControl, Outbounder: Hide, Plans
+    GuiControl, Outbounder: Hide, TheISP
+    GuiControl, Outbounder: Hide, Moblies
+    GuiControl, Outbounder: Hide, MobliesWithNoInternet
+    GuiControl, Outbounder: Hide, Fetch
+    GuiControl, Outbounder: Hide, Modem
+    GuiControl, Outbounder: Hide, Moblies
+    GuiControl, Outbounder: Hide, Voip
+    GuiControl, Outbounder: Hide, MyDateTime
+    GuiControl, Outbounder: Hide, Staff
+    --------------------------
+    ;----Title for the txt boxs----
+    GuiControl, Outbounder: Hide, CustNameTitle
+    GuiControl, Outbounder: Hide, CommentTitle
+    GuiControl, Outbounder: Hide, HoldSale
+    GuiControl, Outbounder: Hide, PlansTitle
+    GuiControl, Outbounder: Hide, TheISPTitle
+    GuiControl, Outbounder: Hide, MobliesTitle
+    GuiControl, Outbounder: Hide, MobliesWithNoInternetTitle
+    GuiControl, Outbounder: Hide, FetchTitle
+    GuiControl, Outbounder: Hide, ModemTitle
+    GuiControl, Outbounder: Hide, VoipTitle
+    GuiControl, Outbounder: Hide, MyDateTimeTitle
+    GuiControl, Outbounder: Hide, staffTitle
+    ;-------------------------------------
+    ;-----Buttons----------------
+    Gui, Outbounder: Add, Button, gOutboundersButtonOk vOk w100, Ok
+    Gui, Outbounder: Add, Button, gOutboundersButtonClear vClear w90 x110, Clear
+    Gui, Outbounder: Add, Button, gOutboundersButtonClose vCls w100 x200, Close
+    Gui, Outbounder: Add, Button, gOutboundersButtonSettings vSettings y125 w100 x0, Settings
+    gui Outbounder: add, Button, gOutboundersButtonUpdate vUpdates y100 w100 x0, update
+;-------------------------------------------------------------------------;
+
+
+;-------------all for the Relocation template---------
+    ;---Text boxs------
+    GuiControl, Outbounder: hide, ReloCustName
+    GuiControl, Outbounder: hide, ReloNewAddress
+    GuiControl, Outbounder: hide, ReloOlderAddress
+    
+    --------------------------
+    ;----Title for the txt boxs----
+    GuiControl, Outbounder: Hide, ReloCustNameTitle
+    GuiControl, Outbounder: Hide, ReloNewAddressTitle
+    GuiControl, Outbounder: Hide, ReloOlderAddressTitle
+    
+  
+    ;-------------------------------------
+    ;-----Buttons----------------
+
+    ;----------------------------
+;-------------------------------------------------------------------------;
+
+
 ;---------Buttons Control---
-GuiControl, note: Hide, Sub
+GuiControl, Outbounder: Hide, Sub
 ;when update is a thing not yet
-GuiControl, note: hide,Updates, 
+GuiControl, Outbounder: hide,Updates, 
 ;------------------
 
 if( FileExist("settings\settings.ini") ) {
@@ -90,10 +115,10 @@ if( FileExist("settings\settings.ini") ) {
 	
 
 
-gui note:+AlwaysOnTop
-Gui, note: Show, w270 h150 x%posx% y%posy% ,Outbounder Helper
+gui Outbounder:+AlwaysOnTop
+Gui, Outbounder: Show, w270 h150 x%posx% y%posy% ,Outbounder Helper
 return
-NotesButtonClose:
+OutboundersButtonClose:
 {
     MsgBox, 4, , Do you want to close dialogue? (Press YES or NO)
     IfMsgBox No
@@ -105,8 +130,16 @@ Movs:
         GuiControlGet, Temp,
         ;Relocation
         if ( Temp = 2) {
-                GuiControl, Move, Ok, y140
-                GuiControl, Move, Cls, y10
+        
+        GuiControl, Outbounder: show, ReloCustName
+        GuiControl, Outbounder: show, ReloNewAddress
+        GuiControl, Outbounder: show, ReloOlderAddress
+        
+       
+        
+        GuiControl, Outbounder: show, ReloCustNameTitle
+        GuiControl, Outbounder: show, ReloNewAddressTitle
+        GuiControl, Outbounder: show, ReloOlderAddressTitle
         }
 
         if Temp = 3
@@ -114,7 +147,7 @@ Movs:
                 GuiControl, Move, Ok, y140
                 GuiControl, Move, Cls, y240
             }
-        ;Taking notes     
+        ;Taking Notes     
         if Temp = 4
             {   
             
@@ -136,18 +169,18 @@ Movs:
                 
                 
                 
-                GuiControl, note: show, CustNameTitle
-                GuiControl, note: show, CommentTitle
-                GuiControl, note: show, PlansTitle
-                GuiControl, note: show, TheISPTitle
-                GuiControl, note: hide, MobliesTitle
-                GuiControl, note: show, FetchTitle
-                GuiControl, note: show, ModemTitle
-                GuiControl, note: show, HaveInternet
-                GuiControl, note: show, MobliesWithNoInternetTitle
-                GuiControl, note: show, VoipTitle
-                GuiControl, note: show, MyDateTime
-                GuiControl, note: show, MyDateTimeTitle
+                GuiControl, Outbounder: show, CustNameTitle
+                GuiControl, Outbounder: show, CommentTitle
+                GuiControl, Outbounder: show, PlansTitle
+                GuiControl, Outbounder: show, TheISPTitle
+                GuiControl, Outbounder: hide, MobliesTitle
+                GuiControl, Outbounder: show, FetchTitle
+                GuiControl, Outbounder: show, ModemTitle
+                GuiControl, Outbounder: show, HaveInternet
+                GuiControl, Outbounder: show, MobliesWithNoInternetTitle
+                GuiControl, Outbounder: show, VoipTitle
+                GuiControl, Outbounder: show, MyDateTime
+                GuiControl, Outbounder: show, MyDateTimeTitle
             
                     
             
@@ -161,17 +194,17 @@ Movs:
             }
             
     else        
-                GuiControl, note: Hide, CustNameTitle
-                GuiControl, note: Hide, CommentTitle
-                GuiControl, note: Hide, HoldSale
-                GuiControl, note: Hide, PlansTitle
-                GuiControl, note: Hide, TheISPTitle
-                GuiControl, note: Hide, MobliesTitle
-                GuiControl, note: hide, MobliesWithNoInternetTitle
-                GuiControl, note: Hide, FetchTitle
-                GuiControl, note: Hide, ModemTitle
-                GuiControl, note: Hide, VoipTitle
-                GuiControl, note: Hide, MyDateTimeTitle
+                GuiControl, Outbounder: Hide, CustNameTitle
+                GuiControl, Outbounder: Hide, CommentTitle
+                GuiControl, Outbounder: Hide, HoldSale
+                GuiControl, Outbounder: Hide, PlansTitle
+                GuiControl, Outbounder: Hide, TheISPTitle
+                GuiControl, Outbounder: Hide, MobliesTitle
+                GuiControl, Outbounder: hide, MobliesWithNoInternetTitle
+                GuiControl, Outbounder: Hide, FetchTitle
+                GuiControl, Outbounder: Hide, ModemTitle
+                GuiControl, Outbounder: Hide, VoipTitle
+                GuiControl, Outbounder: Hide, MyDateTimeTitle
                                 
                 
                 
@@ -202,11 +235,11 @@ HoldingSale:
 {
     GuiControlGet ,HoldSale
     if(HoldSale){
-        GuiControl, note: show, Staff
-        GuiControl, note: show, staffTitle
+        GuiControl, Outbounder: show, Staff
+        GuiControl, Outbounder: show, staffTitle
     }else{
-        GuiControl, note: hide, Staff
-        GuiControl, note: hide, staffTitle
+        GuiControl, Outbounder: hide, Staff
+        GuiControl, Outbounder: hide, staffTitle
     }
     
     
@@ -217,16 +250,16 @@ MobileHaveInternetCheckBox:
 {
     GuiControlGet ,HaveInternet
     if(HaveInternet){
-        GuiControl, note: show, Moblies
-        GuiControl, note: show, MobliesTitle
-        GuiControl, note: hide, MobliesWithNoInternet
-        GuiControl, note: hide, MobliesWithNoInternetTitle
+        GuiControl, Outbounder: show, Moblies
+        GuiControl, Outbounder: show, MobliesTitle
+        GuiControl, Outbounder: hide, MobliesWithNoInternet
+        GuiControl, Outbounder: hide, MobliesWithNoInternetTitle
         
     }else{
-        GuiControl, note: Hide, Moblies
-        GuiControl, note: Hide, MobliesTitle
-        GuiControl, note: show, MobliesWithNoInternet
-        GuiControl, note: show, MobliesWithNoInternetTitle
+        GuiControl, Outbounder: Hide, Moblies
+        GuiControl, Outbounder: Hide, MobliesTitle
+        GuiControl, Outbounder: show, MobliesWithNoInternet
+        GuiControl, Outbounder: show, MobliesWithNoInternetTitle
         
     }
     
@@ -235,12 +268,14 @@ MobileHaveInternetCheckBox:
     return
     
 }
-NotesButtonOk:
+OutboundersButtonOk:
 if (Temp = 2) {
+    flag = 2
     msgBox, this is for relo
 }
-if ( Temp = 4 )
-{   GuiControlGet ,CustName
+if ( Temp = 4 ){   
+    flag = 4
+    GuiControlGet ,CustName
     GuiControlGet ,Comment
     GuiControlGet ,HoldSale
     GuiControlGet ,Plans
@@ -291,24 +326,38 @@ if ( Temp = 4 )
         date = %MyDateTime%
     }
 }
-        
-    Gui, 2:Color, CAE1ED
-    FormatTime, Dat1, %MyDateTime%, MMMM d yyyy
-    theMainComment= % JEE_StrWrap(text, 50)
-    Full =  %name%----------------COMMENTS----------------------------`n%theMainComment% `n---------------Aussie Broadband Quote-------- `n%plan%%Isp%%mobiles%%notInternetM%%fetch%%modem%%voip%CallBack:%Dat1%`n%keepSale% `n -----------------------------------------------------------              
-    
-    Gui, 2:Add, Edit, +Wrap w780 vResults, %Full%
-    Gui, 2:Font, S8 C888888, Arial
-    Gui, 2:Add, Text, x20 y+15 vResultsTxt +BackgroundTrans, Press copy button to save to clipbord, once done ctrl v into Widesales 2.0 notes section.
-    Gui, 2:Add, Button, w105 h32 x686 yp-7 gCopy1 vCopy, Copy to Clipboard
-    Gui, 2:Add, Button, w70 h32 x605 yp+0 gClose1 vClose1, Close
-    GuiControl, 2:Focus, Copy
-    Gui, 2:Font, S8 C555555, Arial
-    gui 2:+AlwaysOnTop
-    Gui, 2:Show, w800, Results
-    return
+    msgBox, %flag%
 
-NotesButtonSettings:
+    if (flag = 2) {
+        Gui, 2:Color, CAE1ED
+        Gui, 2:Add, Button, w70 h32 x605 yp+0 gClose1 vClose1, Close
+        Gui, 2:Show, w800, Results
+    }
+    
+
+
+    if (flag = 4) {
+        Gui, 2:Color, CAE1ED
+        FormatTime, Dat1, %MyDateTime%, MMMM d yyyy
+        theMainComment= % JEE_StrWrap(text, 50)
+        Full =  %name%----------------COMMENTS----------------------------`n%theMainComment% `n---------------Aussie Broadband Quote-------- `n%plan%%Isp%%mobiles%%notInternetM%%fetch%%modem%%voip%CallBack:%Dat1%`n%keepSale% `n -----------------------------------------------------------              
+        
+        Gui, 2:Add, Edit, +Wrap w780 vResults, %Full%
+        Gui, 2:Font, S8 C888888, Arial
+        Gui, 2:Add, Text, x20 y+15 vResultsTxt +BackgroundTrans, Press copy button to save to clipbord, once done ctrl v into Widesales 2.0 Outbounders section.
+        Gui, 2:Add, Button, w105 h32 x686 yp-7 gCopy1 vCopy, Copy to Clipboard
+        Gui, 2:Add, Button, w70 h32 x605 yp+0 gClose1 vClose1, Close
+        GuiControl, 2:Focus, Copy
+        Gui, 2:Font, S8 C555555, Arial
+        gui 2:+AlwaysOnTop
+        Gui, 2:Show, w800, Results
+        return
+    }    
+    
+    return
+   
+
+OutboundersButtonSettings:
 {
     Gui, Settings:Color, CAE1ED
     Gui, Settings:Add, Text, w120, 
@@ -321,7 +370,7 @@ NotesButtonSettings:
     return
 }
 
-NotesButtonUpdate:
+OutboundersButtonUpdate:
 {
     msgbox, pulling new update
 }
@@ -352,7 +401,7 @@ Clipboard = %Full%
     Gui 2:Destroy
 return
 
-NotesButtonClear:
+OutboundersButtonClear:
 Reload
 return
 
