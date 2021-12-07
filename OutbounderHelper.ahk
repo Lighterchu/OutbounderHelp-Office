@@ -32,19 +32,6 @@ Gui, Outbounder: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Plea
     Gui, Outbounder: Add, DateTime, vMyDateTime, dd/MM/yyyy
 ;------------------------------------------------------------------------
 
-
-;--------------Relocation Main Fields -----------------------------
-    Gui, Outbounder: Add, Text, section xm w80 y50 vReloCustNameTitle,Customer Name:
-    Gui, Outbounder: Add, Edit, vReloCustName w200 ys
-    Gui, Outbounder: Add, Text, section xm w80 y80 vReloOlderAddressTitle,Current Address:
-    Gui, Outbounder: Add, Edit, vReloOlderAddress w200 ys
-    Gui, Outbounder: Add, Text, section xm w80 y120 vReloNewAddressTitle,New Address:
-    Gui, Outbounder: Add, Edit, vReloNewAddress w200 ys
-   
-
-;------------------------------------------------------------------------
-
-
 ;-------------all for the Notes template---------
     ;---Text boxs------
     GuiControl, Outbounder: hide, CustName
@@ -84,6 +71,27 @@ Gui, Outbounder: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Plea
 ;-------------------------------------------------------------------------;
 
 
+;--------------Relocation Main Fields -----------------------------
+    Gui, Outbounder: Add, Text, section xm w80 y50 vReloCustNameTitle,Customer Name:
+    Gui, Outbounder: Add, Edit, vReloCustName w200 ys
+    Gui, Outbounder: Add, Text, section xm w80 y80 vReloOlderAddressTitle,Current Address:
+    Gui, Outbounder: Add, Edit, vReloOlderAddress w200 ys
+    Gui, Outbounder: Add, Text, section xm w80 y110 vReloNewAddressTitle,New Address:
+    Gui, Outbounder: Add, Edit, vReloNewAddress w200 ys
+   
+    Gui, Outbounder: Add, CheckBox, vReloHasFetch y140 x10, Tick this if they have a fetch Boxes?
+    Gui, Outbounder: Add, CheckBox, vReloHasMoblies y160 x10, Tick this if they have a Moblies?
+    Gui, Outbounder: Add, CheckBox, vReloHasDisconnectingDate gReloDisconnectTicked y180 x10, Tick this if they have a disconnecting date?
+   
+    Gui, Outbounder: Add, Text, section xm w100 y210 x10 vReloConnectionDate,Connection date:
+    Gui, Outbounder: Add, DateTime, vReloDateTimeConnection, dd/MM/yyyy
+    Gui, Outbounder: Add, Text, section xm w100 y250 x10 vReloDiconnectionDate,Disconnect date:
+    Gui, Outbounder: Add, DateTime, vReloDateTimeDiconnect, dd/MM/yyyy
+   
+
+;------------------------------------------------------------------------
+
+
 ;-------------all for the Relocation template---------
     ;---Text boxs------
     GuiControl, Outbounder: hide, ReloCustName
@@ -95,8 +103,11 @@ Gui, Outbounder: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Plea
     GuiControl, Outbounder: Hide, ReloCustNameTitle
     GuiControl, Outbounder: Hide, ReloNewAddressTitle
     GuiControl, Outbounder: Hide, ReloOlderAddressTitle
+
+    ;---DatesField-------------------------------------
+    GuiControl, Outbounder: Hide, ReloDiconnectionDate
+    GuiControl, Outbounder: Hide, ReloDateTimeDiconnect
     
-  
     ;-------------------------------------
     ;-----Buttons----------------
 
@@ -238,10 +249,10 @@ Movs:
        
 
 
-        GuiControl, Move, Ok, y190 x120
-        GuiControl, Move, Cls, y160 x219
-        GuiControl, Move, Clear, y160 x120
-        GuiControl, Move, Settings, y160 x10
+        GuiControl, Move, Ok, y450 x120
+        GuiControl, Move, Cls, y380 x219
+        GuiControl, Move, Clear, y380 x120
+        GuiControl, Move, Settings, y380 x10
        
 
         Gui, Show, Autosize, Outbounder Helper
@@ -251,7 +262,7 @@ Movs:
         if ( Temp = 3 ) 
             {
 
-                         GuiControl,Hide, ReloCustName
+                GuiControl,Hide, ReloCustName
                 GuiControl,Hide, ReloNewAddress
                 GuiControl,Hide, ReloOlderAddress
                 
@@ -438,6 +449,26 @@ MobileHaveInternetCheckBox:
     return
     
 }
+
+ReloDisconnectTicked:
+{
+    GuiControlGet ,ReloHasDisconnectingDate
+    if(ReloHasDisconnectingDate){
+        GuiControl, Outbounder: show, ReloDiconnectionDate
+        GuiControl, Outbounder: show, ReloDateTimeDiconnect
+        
+    }else{
+        GuiControl, Outbounder: Hide, ReloDiconnectionDate
+        GuiControl, Outbounder: Hide, ReloDateTimeDiconnect
+    }
+    
+    
+        
+    return
+    
+}
+
+
 OutboundersButtonOk:
 if (Temp = 2) {
     flag = 2
