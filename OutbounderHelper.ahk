@@ -240,6 +240,13 @@ Movs:
         GuiControl, Outbounder: show, ReloOlderAddress
         GuiControl, Outbounder: show, ReloNewAddress
        
+        GuiControl, show, ReloHasFetch
+        GuiControl, show, ReloHasMoblies
+        GuiControl, show, ReloHasDisconnectingDate
+        GuiControl, show, ReloDateTimeConnection
+        GuiControl, show, ReloDateTimeDiconnect
+
+
         
        
         
@@ -309,16 +316,26 @@ Movs:
         if  ( Temp = 4 )
             {   
             
-                GuiControl, Hide, ReloCustName
-                GuiControl, Hide, ReloNewAddress
-                GuiControl, Hide, ReloOlderAddress
+                GuiControl, hide, ReloCustName
+                GuiControl, hide, ReloOlderAddress
+                GuiControl, hide, ReloNewAddress
+
+                GuiControl, hide, ReloHasFetch
+                GuiControl, hide, ReloHasMoblies
+                GuiControl, hide, ReloHasDisconnectingDate
+                GuiControl, hide, ReloDateTimeConnection
+                GuiControl, hide, ReloDateTimeDiconnect
+
+
+
                 
-            
+                    
                 
-                GuiControl,  Hide, ReloCustNameTitle
-                GuiControl,  Hide, ReloNewAddressTitle
-                GuiControl,  Hide, ReloOlderAddressTitle
-                
+                    
+                GuiControl,  hide, ReloCustNameTitle
+                GuiControl,  hide, ReloOlderAddressTitle
+                GuiControl, hide, ReloNewAddressTitle
+                        
                 
                 
                 GuiControl, show, NameTitle
@@ -472,7 +489,16 @@ ReloDisconnectTicked:
 OutboundersButtonOk:
 if (Temp = 2) {
     flag = 2
-    msgBox, this is for relo
+    GuiControlGet ,ReloCustName
+    GuiControlGet ,ReloOlderAddress
+    GuiControlGet ,ReloNewAddress
+    GuiControlGet ,ReloHasFetch
+    GuiControlGet ,ReloHasMoblies
+    GuiControlGet ,ReloHasDisconnectingDate
+    GuiControlGet ,ReloDateTimeConnection
+    GuiControlGet ,ReloDateTimeDiconnect
+   
+
 }
 if ( Temp = 4 ){   
     flag = 4
@@ -530,28 +556,44 @@ if ( Temp = 4 ){
     msgBox, %flag%
 
     if (flag = 2) {
-        Gui, 2:Color, CAE1ED
-        Gui, 2:Add, Button, w70 h32 x605 yp+0 gClose1 vClose1, Close
-        Gui, 2:Show, w800, Results
+        Gui, Relo:Color, CAE1ED
+        Var =
+        (
+        Dear XXX,
+        Thank you for your time today.
+        As discussed with you on the phone, we have arranged the relocation of your service from your old address at XXX to your new address of XXX.
+        Your new service will be connected soon after the tech appointment OR 1-5 days from the date of XXDATE-OF-CONNECTIONXX
+        I have arranged the closure of your previous service for XXDATEXX
+        OR
+        We will close off your old service up to 5 days after your new service goes live
+        OR
+        You will need to call us back to arrange closure of your old service when you are ready for it to close off.
+        I have also arranged for the address of your *Fetch/Mobile* service to be updated to your new address.
+        If you have any further questions, please feel free to contact us on 1300 880 905, or simply reply to this email.
+        Thank you again
+        )
+        Gui, Relo:Add, Edit, +Wrap w780 vResults, %Var%
+        Gui, Relo:Add, Button, w70 h32 x605 y100 gClose1 , Close
+        Gui, Relo:Show, w800 h300, Results
     }
     
 
 
     if (flag = 4) {
-        Gui, 2:Color, CAE1ED
+        Gui, notes:Color, CAE1ED
         FormatTime, Dat1, %MyDateTime%, MMMM d yyyy
         theMainComment= % JEE_StrWrap(text, 50)
         Full =  %name%----------------COMMENTS----------------------------`n%theMainComment% `n---------------Aussie Broadband Quote-------- `n%plan%%Isp%%mobiles%%notInternetM%%fetch%%modem%%voip%CallBack:%Dat1%`n%keepSale% `n -----------------------------------------------------------              
         
-        Gui, 2:Add, Edit, +Wrap w780 vResults, %Full%
-        Gui, 2:Font, S8 C888888, Arial
-        Gui, 2:Add, Text, x20 y+15 vResultsTxt +BackgroundTrans, Press copy button to save to clipbord, once done ctrl v into Widesales 2.0 Outbounders section.
-        Gui, 2:Add, Button, w105 h32 x686 yp-7 gCopy1 vCopy, Copy to Clipboard
-        Gui, 2:Add, Button, w70 h32 x605 yp+0 gClose1 vClose1, Close
-        GuiControl, 2:Focus, Copy
-        Gui, 2:Font, S8 C555555, Arial
-        gui 2:+AlwaysOnTop
-        Gui, 2:Show, w800, Results
+        Gui, notes:Add, Edit, +Wrap w780 vResults, %Full%
+        Gui, notes:Font, S8 C888888, Arial
+        Gui, notes:Add, Text, x20 y+15 vResultsTxt +BackgroundTrans, Press copy button to save to clipbord, once done ctrl v into Widesales 2.0 Outbounders section.
+        Gui, notes:Add, Button, w105 h32 x686 yp-7 gCopy1 vCopy, Copy to Clipboard
+        Gui, notes:Add, Button, w70 h32 x605 yp+0 gNotesClose1 vClose1, Close
+        GuiControl, notes:Focus, Copy
+        Gui, notes:Font, S8 C555555, Arial
+        gui notes:+AlwaysOnTop
+        Gui, notes:Show, w800, Results
         return
     }    
     
@@ -606,9 +648,16 @@ OutboundersButtonClear:
 Reload
 return
 
-Close1:
-    Gui 2:Destroy
+NotesClose1:
+    Gui notes:Destroy
 return
+
+Close1:
+    Gui Relo:Destroy
+return
+
+
+
 ;-----Holding helpers ------;
 JEE_StrWrap(vText, vMaxLen, vNeedle:=" ", vSep:="`r`n")
         {
