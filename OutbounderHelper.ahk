@@ -571,14 +571,14 @@ if ( Temp = 4 ){
 }
     msgBox, %flag%
 
+   
+
     if (flag = 2) {
         Gui, Relo:Color, CAE1ED
         FormatTime, connect, %ReloDateTimeConnection%, MMMM d yyyy
         FormatTime, disconnect, %ReloDateTimeDiconnect%, MMMM d yyyy
-        connectingInfo  = Your new service will be connected soon after the tech appointment OR 1-5 days from the date of XXDATE-OF-CONNECTIONXX
-        
-        
-        
+        connectingInfo  = 
+        disconnectingInfo = 
         intro =
         (
         Dear %ReloCustName%,
@@ -586,9 +586,65 @@ if ( Temp = 4 ){
         As discussed with you on the phone, we have arranged the relocation of your service from your old address at %ReloOlderAddress% 
         to your new address of %ReloNewAddress%.
         )
-        Gui, Relo:Add, Edit, +Wrap w800 vResults, %intro%`n%connectingInfo%
+        
+        
+        if(ReloHasTechAppointment){
+            ;to make it possible to line up the text
+             AutoTrim, off 
+            spacing = ; initialise
+            Loop, 7
+                spacing =%spacing%%A_Space%
+            
+            connectingInfo = %spacing% Your new service will be connected soon after the tech appointment.
+        }else {
+            ;to make it possible to line up the text
+             AutoTrim, off 
+            spacing = ; initialise
+            Loop, 7
+                spacing =%spacing%%A_Space%
+            connectingInfo = %spacing% 1-5 days from the date of %connect%
+        }
+
+        if(!ReloHasDisconnectingDate){
+             ;to make it possible to line up the text
+             AutoTrim, off 
+            spacing = ; initialise
+            Loop, 7
+                spacing =%spacing%%A_Space%
+            disconnectingInfo = %spacing% We will close off your old service up to 5 days after your new service goes live
+        }else{
+             ;to make it possible to line up the text
+             AutoTrim, off 
+            spacing = ; initialise
+            Loop, 7
+                spacing =%spacing%%A_Space%
+           disconnectingInfo = %spacing% I have arranged the closure of your previous service for %disconnect%
+        }
+
+       
+        fetch = 
+        moblie = 
+        if(ReloHasMoblies){
+           fetch = I have also arranged for the address of your Moblie service to be updated to your new address.
+        }
+
+        if(ReloHasFetch){
+            moblie = I have also arranged for the address of your Fetch service to be updated to your new address.`n
+        }
+        
+        ending = 
+        (
+        You will need to call us back to arrange closure of your old service when you are ready for it to close off.
+        %moblie%%fetch%
+        If you have any further questions, please feel free to contact us on 1300 880 905, or simply reply to this email.
+        Thank you again
+        )
+        
+       
+      
+        Gui, Relo:Add, Edit, +Wrap w800 vResults, %intro%`n%connectingInfo% `n%disconnectingInfo% `n      %A_Space%%ending%
         Gui, Relo:Add, Button, w70 h32 x605 y170 gClose1 , Close
-        Gui, Relo:Show, w800 h220, Results
+        Gui, Relo:Show, w830 h220, Results
     }
     
 ;     Dear XXX,
@@ -684,7 +740,7 @@ return
 
 
 
-;-----Holding helpers ------;
+;-----helpers ------;
 JEE_StrWrap(vText, vMaxLen, vNeedle:=" ", vSep:="`r`n")
         {
             local
@@ -709,3 +765,11 @@ JEE_StrWrap(vText, vMaxLen, vNeedle:=" ", vSep:="`r`n")
                 vText := SubStr(vText, vPos+vLenNeedle)
             }
         }
+
+;  Spacing(vNumberOfSpaceing){
+;     AutoTrim, off 
+;     String = "" ; initialise
+;     Loop, vNumberOfSpaceing
+;         String =%String%%A_Space%
+;     return String
+;  }
