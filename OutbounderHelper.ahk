@@ -575,7 +575,10 @@ if ( Temp = 4 ){
         Gui, Relo:Color, CAE1ED
         FormatTime, connect, %ReloDateTimeConnection%, MMMM d yyyy
         FormatTime, disconnect, %ReloDateTimeDiconnect%, MMMM d yyyy
-        connectingInfo  = this will attach
+        connectingInfo  = Your new service will be connected soon after the tech appointment OR 1-5 days from the date of XXDATE-OF-CONNECTIONXX
+        
+        
+        
         intro =
         (
         Dear %ReloCustName%,
@@ -583,7 +586,7 @@ if ( Temp = 4 ){
         As discussed with you on the phone, we have arranged the relocation of your service from your old address at %ReloOlderAddress% 
         to your new address of %ReloNewAddress%.
         )
-        Gui, Relo:Add, Edit, +Wrap w800 vResults, %intro%%connectingInfo%
+        Gui, Relo:Add, Edit, +Wrap w800 vResults, %intro%`n%connectingInfo%
         Gui, Relo:Add, Button, w70 h32 x605 y170 gClose1 , Close
         Gui, Relo:Show, w800 h220, Results
     }
