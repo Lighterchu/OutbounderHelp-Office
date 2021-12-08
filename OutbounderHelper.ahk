@@ -214,6 +214,7 @@ Movs:
                 GuiControl, Hide, Sub
                 GuiControl, Move, Cls, y50
                 GuiControl, Move, Settings, y50 x10
+                GuiControl, hide, Clear
                 
                 ;when update is a thing not yet
                 
@@ -272,7 +273,7 @@ Movs:
         GuiControl, Outbounder: show, ReloOlderAddressTitle
         GuiControl, Outbounder: show, ReloNewAddressTitle
        
-
+        GuiControl, show, Clear
 
         GuiControl, Move, Ok, y360 x120
         GuiControl, Move, Cls, y335 x219
@@ -431,7 +432,9 @@ Movs:
                 GuiControl, Outbounder: show, MyDateTime
                 GuiControl, Outbounder: show, MyDateTimeTitle
             
-                    
+
+
+                GuiControl, show, Clear    
             
                 GuiControl, Move, Ok, x350 y570
                 GuiControl, Move, Cls, x90 y570
