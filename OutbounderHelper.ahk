@@ -573,15 +573,17 @@ if ( Temp = 4 ){
 
     if (flag = 2) {
         Gui, Relo:Color, CAE1ED
-        Var =
+        FormatTime, connect, %ReloDateTimeConnection%, MMMM d yyyy
+        FormatTime, disconnect, %ReloDateTimeDiconnect%, MMMM d yyyy
+        connectingInfo  = this will attach
+        intro =
         (
         Dear %ReloCustName%,
         Thank you for your time today.
         As discussed with you on the phone, we have arranged the relocation of your service from your old address at %ReloOlderAddress% 
         to your new address of %ReloNewAddress%.
-        Your new service will be connected soon after the tech appointment OR 1-5 days from the date of %ReloDateTimeConnection%
         )
-        Gui, Relo:Add, Edit, +Wrap w800 vResults, %Var%
+        Gui, Relo:Add, Edit, +Wrap w800 vResults, %intro%%connectingInfo%
         Gui, Relo:Add, Button, w70 h32 x605 y170 gClose1 , Close
         Gui, Relo:Show, w800 h220, Results
     }
