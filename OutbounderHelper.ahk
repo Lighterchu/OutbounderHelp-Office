@@ -79,13 +79,16 @@ Gui, Outbounder: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Plea
     Gui, Outbounder: Add, Text, section xm w80 y110 vReloNewAddressTitle,New Address:
     Gui, Outbounder: Add, Edit, vReloNewAddress w200 ys
    
-    Gui, Outbounder: Add, CheckBox, vReloHasFetch y140 x10, Tick this if they have a fetch Boxes?
-    Gui, Outbounder: Add, CheckBox, vReloHasMoblies y160 x10, Tick this if they have a Moblies?
-    Gui, Outbounder: Add, CheckBox, vReloHasDisconnectingDate gReloDisconnectTicked y180 x10, Tick this if they have a disconnecting date?
+    Gui, Outbounder: Add, CheckBox, vReloHasTechAppointment gReloTechAppointmentTicked y140 x10, Tick this if they have tech appointment?
+    Gui, Outbounder: Add, CheckBox, vReloHasFetch y160 x10, Tick this if they have a fetch Boxes?
+    Gui, Outbounder: Add, CheckBox, vReloHasMoblies y180 x10, Tick this if they have a Moblies?
+    Gui, Outbounder: Add, CheckBox, vReloHasDisconnectingDate gReloDisconnectTicked y200 x10, Tick this if they have a disconnecting date?
+    
+
    
-    Gui, Outbounder: Add, Text, section xm w100 y210 x10 vReloConnectionDate,Connection date:
+    Gui, Outbounder: Add, Text, section xm w100 y250 x10 vReloConnectionDate,Connection date:
     Gui, Outbounder: Add, DateTime, vReloDateTimeConnection, dd/MM/yyyy
-    Gui, Outbounder: Add, Text, section xm w100 y250 x10 vReloDiconnectionDate,Disconnect date:
+    Gui, Outbounder: Add, Text, section xm w100 y290 x10 vReloDiconnectionDate,Disconnect date:
     Gui, Outbounder: Add, DateTime, vReloDateTimeDiconnect, dd/MM/yyyy
    
 
@@ -244,7 +247,7 @@ Movs:
         GuiControl, show, ReloHasMoblies
         GuiControl, show, ReloHasDisconnectingDate
         GuiControl, show, ReloDateTimeConnection
-        GuiControl, show, ReloDateTimeDiconnect
+        GuiControl, hide, ReloDateTimeDiconnect
 
 
         
@@ -484,6 +487,19 @@ ReloDisconnectTicked:
     return
     
 }
+ReloTechAppointmentTicked: 
+{
+    GuiControlGet ,ReloHasTechAppointment
+    if(ReloHasTechAppointment){
+        GuiControl, Outbounder: hide, ReloConnectionDate
+        GuiControl, Outbounder: hide, ReloDateTimeConnection
+        
+    }else{
+        GuiControl, Outbounder: show, ReloConnectionDate
+        GuiControl, Outbounder: show, ReloDateTimeConnection
+    }
+    return
+}
 
 
 OutboundersButtonOk:
@@ -559,24 +575,29 @@ if ( Temp = 4 ){
         Gui, Relo:Color, CAE1ED
         Var =
         (
-        Dear XXX,
+        Dear %ReloCustName%,
         Thank you for your time today.
-        As discussed with you on the phone, we have arranged the relocation of your service from your old address at XXX to your new address of XXX.
-        Your new service will be connected soon after the tech appointment OR 1-5 days from the date of XXDATE-OF-CONNECTIONXX
-        I have arranged the closure of your previous service for XXDATEXX
-        OR
-        We will close off your old service up to 5 days after your new service goes live
-        OR
-        You will need to call us back to arrange closure of your old service when you are ready for it to close off.
-        I have also arranged for the address of your *Fetch/Mobile* service to be updated to your new address.
-        If you have any further questions, please feel free to contact us on 1300 880 905, or simply reply to this email.
-        Thank you again
+        As discussed with you on the phone, we have arranged the relocation of your service from your old address at %ReloOlderAddress% 
+        to your new address of %ReloNewAddress%.
+        Your new service will be connected soon after the tech appointment OR 1-5 days from the date of %ReloDateTimeConnection%
         )
-        Gui, Relo:Add, Edit, +Wrap w780 vResults, %Var%
-        Gui, Relo:Add, Button, w70 h32 x605 y100 gClose1 , Close
-        Gui, Relo:Show, w800 h300, Results
+        Gui, Relo:Add, Edit, +Wrap w800 vResults, %Var%
+        Gui, Relo:Add, Button, w70 h32 x605 y170 gClose1 , Close
+        Gui, Relo:Show, w800 h220, Results
     }
     
+;     Dear XXX,
+; Thank you for your time today.
+; As discussed with you on the phone, we have arranged the relocation of your service from your old address at XXX to your new address of XXX.
+; Your new service will be connected soon after the tech appointment OR 1-5 days from the date of XXDATE-OF-CONNECTIONXX
+; I have arranged the closure of your previous service for XXDATEXX
+; OR
+; We will close off your old service up to 5 days after your new service goes live
+; OR
+; You will need to call us back to arrange closure of your old service when you are ready for it to close off.
+; I have also arranged for the address of your *Fetch/Mobile* service to be updated to your new address.
+; If you have any further questions, please feel free to contact us on 1300 880 905, or simply reply to this email.
+; Thank you again
 
 
     if (flag = 4) {
