@@ -129,12 +129,12 @@ if( FileExist("settings\settings.ini") ) {
 	iniRead, posy, settings\settings.ini, Outbounder Setting, PosY
 	
 }else {
-	msgBox,Making the settings folder, dont remove this file. this is used for the settings 
+	msgBox,Making the settings folder, dont remove this file. this is used for the settings. to change the Position of the program go into settings then drag the program where you want it to be and then hit save Position
 	FileCreateDir, settings
 	posx = 10
 	posy = 70
-	IniWrite, posx, settings\settings.ini, Outbounder Setting, PosX
-	IniWrite, posy, settings\settings.ini, Outbounder Setting, PosY
+	IniWrite, %posx%, settings\settings.ini, Outbounder Setting, PosX
+	IniWrite, %posy%, settings\settings.ini, Outbounder Setting, PosY
 	
 
 }
