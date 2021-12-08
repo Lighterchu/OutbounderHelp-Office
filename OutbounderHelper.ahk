@@ -569,10 +569,6 @@ if ( Temp = 4 ){
         date = %MyDateTime%
     }
 }
-    msgBox, %flag%
-
-   
-
     if (flag = 2) {
         Gui, Relo:Color, CAE1ED
         FormatTime, connect, %ReloDateTimeConnection%, MMMM d yyyy
@@ -583,7 +579,8 @@ if ( Temp = 4 ){
         (
         Dear %ReloCustName%,
         Thank you for your time today.
-        As discussed with you on the phone, we have arranged the relocation of your service from your old address at %ReloOlderAddress% 
+        As discussed with you on the phone, we have arranged the relocation of your service from your old address at 
+        %ReloOlderAddress% 
         to your new address of %ReloNewAddress%.
         )
         
@@ -629,11 +626,17 @@ if ( Temp = 4 ){
         }
 
         if(ReloHasFetch){
-            AutoTrim, off 
-            spacing = ; initialise
-            Loop, 7
-                spacing =%spacing%%A_Space%
-            fetch =%spacing%  I have also arranged for the address of your Fetch service to be updated to your new address.
+            ;To fix the spacing
+            if(ReloHasMoblies) {
+                AutoTrim, off 
+                spacing = ; initialise
+                Loop, 7
+                    spacing =%spacing%%A_Space%
+                fetch =%spacing% I have also arranged for the address of your Fetch service to be updated to your new address.
+                
+            }else {
+                 fetch = I have also arranged for the address of your Fetch service to be updated to your new address.
+            }
         }
         
         ending = 
@@ -644,9 +647,11 @@ if ( Temp = 4 ){
         )
         
        
-      
-        Gui, Relo:Add, Edit, +Wrap w800 vResults, %intro%`n%connectingInfo% `n%disconnectingInfo% `n      %A_Space%%ending%
-        Gui, Relo:Add, Button, w70 h32 x605 y170 gClose1 , Close
+        Full = %intro%`n%connectingInfo% `n%disconnectingInfo% `n      %A_Space%%ending%
+        Gui, Relo:Add, Edit, +Wrap w800 vResults, %Full%
+        Gui, Relo:Add, Button, w105 h32 x686 yp+170 gCopy1 vCopy, Copy to Clipboard
+        Gui, Relo:Add, Text, x20 y+15 vResultsTxt +BackgroundTrans, Press copy button to save to clipbord, once done ctrl v into Widesales 2.0 Outbounders section.
+        Gui, Relo:Add, Button, w70 h32 x605 yp-47 gClose1 , Close
         Gui, Relo:Show, w830 h220, Results
     }
     
