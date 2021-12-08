@@ -84,7 +84,7 @@ Gui, Outbounder: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Plea
     Gui, Outbounder: Add, CheckBox, vReloHasMoblies y180 x10, Tick this if they have a Moblies?
     Gui, Outbounder: Add, CheckBox, vReloHasDisconnectingDate gReloDisconnectTicked y200 x10, Tick this if they have a disconnecting date?
     
-
+    GuiControl, Outbounder: Hide, ReloHasTechAppointment
    
     Gui, Outbounder: Add, Text, section xm w100 y250 x10 vReloConnectionDate,Connection date:
     Gui, Outbounder: Add, DateTime, vReloDateTimeConnection, dd/MM/yyyy
@@ -156,6 +156,8 @@ OutboundersButtonClose:
 Movs:
         GuiControlGet, Temp,
         if ( Temp = 1){
+
+                ;Hiding the relocation Template
                 GuiControl,Hide, ReloCustName
                 GuiControl,Hide, ReloNewAddress
                 GuiControl,Hide, ReloOlderAddress
@@ -165,8 +167,21 @@ Movs:
                 GuiControl,Hide, ReloCustNameTitle
                 GuiControl,Hide, ReloNewAddressTitle
                 GuiControl,Hide, ReloOlderAddressTitle
-                
 
+                
+                
+                GuiControl,Hide, ReloHasFetch
+                GuiControl,Hide, ReloHasMoblies
+                GuiControl,Hide, ReloHasDisconnectingDate
+                GuiControl,Hide, ReloDiconnectionDate
+                GuiControl,Hide, ReloDateTimeConnection
+                GuiControl,Hide, ReloDateTimeDiconnect
+                GuiControl,Hide, ReloConnectionDate
+                GuiControl,Hide ,ReloHasTechAppointment
+
+                ;------------------------------
+                
+                ;Hiding the notes Template
                 GuiControl,Hide, CustNameTitle
                 GuiControl,Hide, CommentTitle
                 GuiControl,Hide, HoldSale
@@ -193,12 +208,12 @@ Movs:
                 GuiControl, Hide, Modem
                 GuiControl, Hide, Voip
                 GuiControl, Hide, MyDateTime
-
+                ;-----------------------------
                
                 
                 GuiControl, Hide, Sub
-                GuiControl, Move, Clear, y50
                 GuiControl, Move, Cls, y50
+                GuiControl, Move, Settings, y50 x10
                 
                 ;when update is a thing not yet
                 
@@ -259,10 +274,10 @@ Movs:
        
 
 
-        GuiControl, Move, Ok, y450 x120
-        GuiControl, Move, Cls, y380 x219
-        GuiControl, Move, Clear, y380 x120
-        GuiControl, Move, Settings, y380 x10
+        GuiControl, Move, Ok, y360 x120
+        GuiControl, Move, Cls, y335 x219
+        GuiControl, Move, Clear, y335 x120
+        GuiControl, Move, Settings, y335 x10
        
 
         Gui, Show, Autosize, Outbounder Helper
@@ -271,6 +286,31 @@ Movs:
 
         if ( Temp = 3 ) 
             {
+                
+                ;Hiding the relocation Template
+                GuiControl,Hide, ReloCustName
+                GuiControl,Hide, ReloNewAddress
+                GuiControl,Hide, ReloOlderAddress
+                
+            
+                
+                GuiControl,Hide, ReloCustNameTitle
+                GuiControl,Hide, ReloNewAddressTitle
+                GuiControl,Hide, ReloOlderAddressTitle
+
+                
+                
+                GuiControl,Hide, ReloHasFetch
+                GuiControl,Hide, ReloHasMoblies
+                GuiControl,Hide, ReloHasDisconnectingDate
+                GuiControl,Hide, ReloDiconnectionDate
+                GuiControl,Hide, ReloDateTimeConnection
+                GuiControl,Hide, ReloDateTimeDiconnect
+                GuiControl,Hide, ReloConnectionDate
+                GuiControl,Hide ,ReloHasTechAppointment
+
+                ;------------------------------
+
 
                 GuiControl,Hide, ReloCustName
                 GuiControl,Hide, ReloNewAddress
@@ -318,6 +358,29 @@ Movs:
         ;Taking Notes     
         if  ( Temp = 4 )
             {   
+                ;Hiding the relocation Template
+                GuiControl,Hide, ReloCustName
+                GuiControl,Hide, ReloNewAddress
+                GuiControl,Hide, ReloOlderAddress
+                
+            
+                
+                GuiControl,Hide, ReloCustNameTitle
+                GuiControl,Hide, ReloNewAddressTitle
+                GuiControl,Hide, ReloOlderAddressTitle
+
+                
+                
+                GuiControl,Hide, ReloHasFetch
+                GuiControl,Hide, ReloHasMoblies
+                GuiControl,Hide, ReloHasDisconnectingDate
+                GuiControl,Hide, ReloDiconnectionDate
+                GuiControl,Hide, ReloDateTimeConnection
+                GuiControl,Hide, ReloDateTimeDiconnect
+                GuiControl,Hide, ReloConnectionDate
+                GuiControl,Hide ,ReloHasTechAppointment
+
+                ;------------------------------
             
                 GuiControl, hide, ReloCustName
                 GuiControl, hide, ReloOlderAddress
@@ -382,7 +445,7 @@ Movs:
             
     else        
 
-
+                ;Hiding the relocation Template
                 GuiControl,Hide, ReloCustName
                 GuiControl,Hide, ReloNewAddress
                 GuiControl,Hide, ReloOlderAddress
@@ -392,6 +455,19 @@ Movs:
                 GuiControl,Hide, ReloCustNameTitle
                 GuiControl,Hide, ReloNewAddressTitle
                 GuiControl,Hide, ReloOlderAddressTitle
+
+                
+                
+                GuiControl,Hide, ReloHasFetch
+                GuiControl,Hide, ReloHasMoblies
+                GuiControl,Hide, ReloHasDisconnectingDate
+                GuiControl,Hide, ReloDiconnectionDate
+                GuiControl,Hide, ReloDateTimeConnection
+                GuiControl,Hide, ReloDateTimeDiconnect
+                GuiControl,Hide, ReloConnectionDate
+                GuiControl,Hide ,ReloHasTechAppointment
+
+                ;------------------------------
                 
 
                 GuiControl,Hide, CustNameTitle
@@ -608,7 +684,7 @@ if ( Temp = 4 ){
             spacing = ; initialise
             Loop, 7
                 spacing =%spacing%%A_Space%
-            disconnectingInfo = %spacing% We will close off your old service up to 5 days after your new service goes live
+            disconnectingInfo = %spacing% We will close off your old service up to 5 days after your new service goes live.
         }else{
              ;to make it possible to line up the text
              AutoTrim, off 
@@ -650,8 +726,8 @@ if ( Temp = 4 ){
         Full = %intro%`n%connectingInfo% `n%disconnectingInfo% `n      %A_Space%%ending%
         Gui, Relo:Add, Edit, +Wrap w800 vResults, %Full%
         Gui, Relo:Add, Button, w105 h32 x686 yp+170 gCopy1 vCopy, Copy to Clipboard
-        Gui, Relo:Add, Text, x20 y+15 vResultsTxt +BackgroundTrans, Press copy button to save to clipbord, once done ctrl v into Widesales 2.0 Outbounders section.
-        Gui, Relo:Add, Button, w70 h32 x605 yp-47 gClose1 , Close
+        Gui, Relo:Add, Text, x20 yp+5 vResultsTxt +BackgroundTrans, Press copy Copy to Clipboard, once done ctrl v into Email.
+        Gui, Relo:Add, Button, w70 h32 x605 yp-5 gClose1 , Close
         Gui, Relo:Show, w830 h220, Results
     }
     
