@@ -625,16 +625,19 @@ if ( Temp = 4 ){
         fetch = 
         moblie = 
         if(ReloHasMoblies){
-           fetch = I have also arranged for the address of your Moblie service to be updated to your new address.
+           moblie = I have also arranged for the address of your Moblie service to be updated to your new address.`n
         }
 
         if(ReloHasFetch){
-            moblie = I have also arranged for the address of your Fetch service to be updated to your new address.`n
+            AutoTrim, off 
+            spacing = ; initialise
+            Loop, 7
+                spacing =%spacing%%A_Space%
+            fetch =%spacing%  I have also arranged for the address of your Fetch service to be updated to your new address.
         }
         
         ending = 
         (
-        You will need to call us back to arrange closure of your old service when you are ready for it to close off.
         %moblie%%fetch%
         If you have any further questions, please feel free to contact us on 1300 880 905, or simply reply to this email.
         Thank you again
