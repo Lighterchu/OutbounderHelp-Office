@@ -263,12 +263,12 @@ Movs:
         GuiControl, show, ReloHasMoblies
         GuiControl, show, ReloHasDisconnectingDate
         GuiControl, show, ReloDateTimeConnection
-        GuiControl, hide, ReloDateTimeDiconnect
+        
 
 
         
        
-        
+        GuiControl,show ,ReloHasTechAppointment
         GuiControl, Outbounder: show, ReloCustNameTitle
         GuiControl, Outbounder: show, ReloOlderAddressTitle
         GuiControl, Outbounder: show, ReloNewAddressTitle
