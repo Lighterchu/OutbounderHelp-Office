@@ -667,76 +667,50 @@ if ( Temp = 4 ){
         FormatTime, disconnect, %ReloDateTimeDiconnect%, MMMM d yyyy
         connectingInfo  = 
         disconnectingInfo = 
-        intro =
-        (
-        Dear %ReloCustName%,
-        Thank you for your time today.
-        As discussed with you on the phone, we have arranged the relocation of your service from your old address at 
-        %ReloOlderAddress% 
-        to your new address of %ReloNewAddress%.
-        )
-        
+        intro =Dear %ReloCustName%, `nThank you for your time today. `n As discussed with you on the phone, we have arranged the relocation of your service  from your old address at  %ReloOlderAddress% to your new address of %ReloNewAddress%.
         
         if(ReloHasTechAppointment){
             ;to make it possible to line up the text
-             AutoTrim, off 
-            spacing = ; initialise
-            Loop, 7
-                spacing =%spacing%%A_Space%
+             
             
-            connectingInfo = %spacing% Your new service will be connected soon after the tech appointment.
+            connectingInfo = Your new service will be connected soon after the tech appointment.
         }else {
             ;to make it possible to line up the text
-             AutoTrim, off 
-            spacing = ; initialise
-            Loop, 7
-                spacing =%spacing%%A_Space%
-            connectingInfo = %spacing% 1-5 days from the date of %connect%.
+          
+            connectingInfo =  1-5 days from the date of %connect%.
         }
 
         if(!ReloHasDisconnectingDate){
              ;to make it possible to line up the text
-             AutoTrim, off 
-            spacing = ; initialise
-            Loop, 7
-                spacing =%spacing%%A_Space%
-            disconnectingInfo = %spacing% We will close off your old service up to 5 days after your new service goes live.
+             
+            disconnectingInfo =  We will close off your old service up to 5 days after your new service goes live.
         }else{
              ;to make it possible to line up the text
-             AutoTrim, off 
-            spacing = ; initialise
-            Loop, 7
-                spacing =%spacing%%A_Space%
-           disconnectingInfo = %spacing% I have arranged the closure of your previous service for %disconnect%
+             
+           disconnectingInfo =  I have arranged the closure of your previous service for %disconnect%
         }
 
        
         fetch = 
         moblie = 
         if(ReloHasMoblies){
-           moblie = I have also arranged for the address of your Moblie service to be updated to your new address.`n
+           moblie = I have also arranged for the address of your Mobile service to be updated to your new address.`n
         }
 
         if(ReloHasFetch){
             ;To fix the spacing
             if(ReloHasMoblies) {
-                AutoTrim, off 
-                spacing = ; initialise
-                Loop, 7
-                    spacing =%spacing%%A_Space%
-                fetch =%spacing% I have also arranged for the address of your Fetch service to be updated to your new address.
+                
+                fetch = I have also arranged for the address of your Fetch service to be updated to your new address.
                 
             }else {
                  fetch = I have also arranged for the address of your Fetch service to be updated to your new address.
             }
         }
         if(ReloCallBackToCLose){
-             AutoTrim, off 
-                spacing = ; initialise
-                Loop, 7
-                    spacing =%spacing%%A_Space%
+             
             disconnectingInfo = 
-            tellCustomerToCallback = `n %spacing%You will need to call us back to arrange closure of your old service when you are ready for it to close off.
+            tellCustomerToCallback = `n You will need to call us back to arrange closure of your old service when you are ready for it to close off.
         }else{
             tellCustomerToCallback = 
         }
@@ -744,20 +718,20 @@ if ( Temp = 4 ){
         
 
         
-        ending = 
-        (
-        %moblie%%fetch%%tellCustomerToCallback%
-        If you have any further questions, please feel free to contact us on 1300 880 905, or simply reply to this email.
-        Thank you again
-        )
+        ending = %moblie%%fetch%%tellCustomerToCallback% If you have any further questions, please feel free to contact us on 1300 880 905, or simply reply to this email. `nThank you again
+
+        
+        
+        
+
         
        
-        Full = %intro%`n%connectingInfo% `n%disconnectingInfo% `n      %A_Space%%ending%
-        Gui, Relo:Add, Edit, +Wrap w800 vResults, %Full%
-        Gui, Relo:Add, Button, w105 h32 x686 yp+170 gCopy1 vCopy, Copy to Clipboard
-        Gui, Relo:Add, Text, x20 yp+5 vResultsTxt +BackgroundTrans, Press copy Copy to Clipboard, once done ctrl v into Email.
-        Gui, Relo:Add, Button, w70 h32 x605 yp-5 gClose1 , Close
-        Gui, Relo:Show, w830 h220, Results
+        Full = %intro%`n%connectingInfo% `n%disconnectingInfo% `n%ending%
+        Gui, Relo:Add, Edit, +Wrap w400 vResults, %Full%
+        Gui, Relo:Add, Button, w105 h32 x300 yp+220 gCopy1 vCopy, Copy to Clipboard
+        Gui, Relo:Add, Text, x20 yp+180 vResultsTxt +BackgroundTrans, Press copy Copy to Clipboard, once done ctrl v into Email.
+        Gui, Relo:Add, Button, w70 h32 x320 yp-20 gClose1 , Close
+        Gui, Relo:Show, w620 h420, Results
     }
     
 ;     Dear XXX,
