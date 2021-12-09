@@ -79,12 +79,15 @@ Gui, Outbounder: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Plea
     Gui, Outbounder: Add, Text, section xm w80 y110 vReloNewAddressTitle,New Address:
     Gui, Outbounder: Add, Edit, vReloNewAddress w200 ys
    
-    Gui, Outbounder: Add, CheckBox, vReloHasTechAppointment gReloTechAppointmentTicked y140 x10, Tick this if they have tech appointment?
-    Gui, Outbounder: Add, CheckBox, vReloHasFetch y160 x10, Tick this if they have a fetch Boxes?
-    Gui, Outbounder: Add, CheckBox, vReloHasMoblies y180 x10, Tick this if they have a Moblies?
-    Gui, Outbounder: Add, CheckBox, vReloHasDisconnectingDate gReloDisconnectTicked y200 x10, Tick this if they have a disconnecting date?
+    
+    Gui, Outbounder: Add, CheckBox, vReloCallBackToCLose gReloCallback y140 x10, Tick this if they have to callback to close service?
+    Gui, Outbounder: Add, CheckBox, vReloHasTechAppointment gReloTechAppointmentTicked y160 x10, Tick this if they have tech appointment?
+    Gui, Outbounder: Add, CheckBox, vReloHasFetch y180 x10, Tick this if they have a fetch Boxes?
+    Gui, Outbounder: Add, CheckBox, vReloHasMoblies y200 x10, Tick this if they have a Moblies?
+    Gui, Outbounder: Add, CheckBox, vReloHasDisconnectingDate gReloDisconnectTicked y220 x10, Tick this if they have a disconnecting date?
     
     GuiControl, Outbounder: Hide, ReloHasTechAppointment
+    GuiControl, Outbounder: Hide ,ReloCallBackToCLose
    
     Gui, Outbounder: Add, Text, section xm w100 y250 x10 vReloConnectionDate,Connection date:
     Gui, Outbounder: Add, DateTime, vReloDateTimeConnection, dd/MM/yyyy
@@ -178,6 +181,7 @@ Movs:
                 GuiControl,Hide, ReloDateTimeDiconnect
                 GuiControl,Hide, ReloConnectionDate
                 GuiControl,Hide ,ReloHasTechAppointment
+                GuiControl,Hide ,ReloCallBackToCLose
 
                 ;------------------------------
                 
@@ -269,6 +273,7 @@ Movs:
         
        
         GuiControl,show ,ReloHasTechAppointment
+        GuiControl,show ,ReloCallBackToCLose
         GuiControl, Outbounder: show, ReloCustNameTitle
         GuiControl, Outbounder: show, ReloOlderAddressTitle
         GuiControl, Outbounder: show, ReloNewAddressTitle
@@ -380,20 +385,11 @@ Movs:
                 GuiControl,Hide, ReloDateTimeDiconnect
                 GuiControl,Hide, ReloConnectionDate
                 GuiControl,Hide ,ReloHasTechAppointment
+                GuiControl, Outbounder: Hide ,ReloCallBackToCLose
 
                 ;------------------------------
             
-                GuiControl, hide, ReloCustName
-                GuiControl, hide, ReloOlderAddress
-                GuiControl, hide, ReloNewAddress
-
-                GuiControl, hide, ReloHasFetch
-                GuiControl, hide, ReloHasMoblies
-                GuiControl, hide, ReloHasDisconnectingDate
-                GuiControl, hide, ReloDateTimeConnection
-                GuiControl, hide, ReloDateTimeDiconnect
-
-
+                
 
                 
                     
@@ -469,6 +465,7 @@ Movs:
                 GuiControl,Hide, ReloDateTimeDiconnect
                 GuiControl,Hide, ReloConnectionDate
                 GuiControl,Hide ,ReloHasTechAppointment
+                GuiControl,hide ,ReloCallBackToCLose
 
                 ;------------------------------
                 
@@ -566,6 +563,22 @@ ReloDisconnectTicked:
     return
     
 }
+
+ReloCallback: 
+{
+    GuiControlGet ,ReloHasDisconnectingDate
+    GuiControlGet ,ReloCallBackToCLose
+    
+    if(ReloCallBackToCLose){
+        GuiControl, Outbounder: hide, ReloHasDisconnectingDate
+    }else{
+        GuiControl, Outbounder: show, ReloHasDisconnectingDate
+    }
+
+    return
+}
+
+
 ReloTechAppointmentTicked: 
 {
     GuiControlGet ,ReloHasTechAppointment
@@ -678,7 +691,7 @@ if ( Temp = 4 ){
             spacing = ; initialise
             Loop, 7
                 spacing =%spacing%%A_Space%
-            connectingInfo = %spacing% 1-5 days from the date of %connect%
+            connectingInfo = %spacing% 1-5 days from the date of %connect%.
         }
 
         if(!ReloHasDisconnectingDate){
@@ -717,10 +730,23 @@ if ( Temp = 4 ){
                  fetch = I have also arranged for the address of your Fetch service to be updated to your new address.
             }
         }
+        if(ReloCallBackToCLose){
+             AutoTrim, off 
+                spacing = ; initialise
+                Loop, 7
+                    spacing =%spacing%%A_Space%
+            disconnectingInfo = 
+            tellCustomerToCallback = `n %spacing%You will need to call us back to arrange closure of your old service when you are ready for it to close off.
+        }else{
+            tellCustomerToCallback = 
+        }
+
+        
+
         
         ending = 
         (
-        %moblie%%fetch%
+        %moblie%%fetch%%tellCustomerToCallback%
         If you have any further questions, please feel free to contact us on 1300 880 905, or simply reply to this email.
         Thank you again
         )
@@ -786,6 +812,7 @@ OutboundersButtonUpdate:
 {
     msgbox, pulling new update
 }
+
 
 SaveProgramPos:
 {   
