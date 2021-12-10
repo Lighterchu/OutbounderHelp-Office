@@ -267,6 +267,8 @@ Movs:
         GuiControl, show, ReloHasMoblies
         GuiControl, show, ReloHasDisconnectingDate
         GuiControl, show, ReloDateTimeConnection
+        GuiControl, show, ReloConnectionDate
+        
         
 
 
