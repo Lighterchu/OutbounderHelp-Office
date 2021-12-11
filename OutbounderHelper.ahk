@@ -85,8 +85,8 @@ Gui, Outbounder: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Plea
     
     Gui, Outbounder: Add, CheckBox, vReloCallBackToCLose gReloCallback y140 x10, Tick this if they have to callback to close service?
     Gui, Outbounder: Add, CheckBox, vReloHasTechAppointment gReloTechAppointmentTicked y160 x10, Tick this if they have tech appointment?
-    Gui, Outbounder: Add, CheckBox, vReloHasFetch y180 x10, Tick this if they have a fetch Boxes?
-    Gui, Outbounder: Add, CheckBox, vReloHasMoblies y200 x10, Tick this if they have a Moblies?
+    Gui, Outbounder: Add, CheckBox, vReloHasFetch y180 x10, Tick this if they have a Fetch Boxes?
+    Gui, Outbounder: Add, CheckBox, vReloHasMoblies y200 x10, Tick this if they have a Mobiles?
     Gui, Outbounder: Add, CheckBox, vReloHasDisconnectingDate gReloDisconnectTicked y220 x10, Tick this if they have a disconnecting date?
     
     GuiControl, Outbounder: Hide, ReloHasTechAppointment
