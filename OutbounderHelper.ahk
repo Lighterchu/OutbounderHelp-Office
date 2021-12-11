@@ -3,8 +3,11 @@
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+
+The_VersionName = v1.0.0
+
 Gui, Outbounder: Add, Text, section xm w80, Template:
-Gui, Outbounder: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Please select a template|| Relocation | Address Update |Take Notes|
+Gui, Outbounder: Add, DropDownList,  w182 xp+54 yp-2 gMovs vTemp AltSubmit, Please select a template|| Relocation | Take Notes|
 ;--------------Notes Main Fields -----------------------------
     Gui, Outbounder: Add, Text, section xm w80 vCustNameTitle,Customer Name:
     Gui, Outbounder: Add, Edit, vCustName w200 ys
@@ -128,7 +131,7 @@ GuiControl, Outbounder: hide,Updates,
 ;------------------
 
 if( FileExist("settings\settings.ini") ) {
-	iniRead, posx, settings\settings.ini, Outbounder Setting, PosX
+    iniRead, posx, settings\settings.ini, Outbounder Setting, PosX
 	iniRead, posy, settings\settings.ini, Outbounder Setting, PosY
 	
 }else {
@@ -144,10 +147,13 @@ if( FileExist("settings\settings.ini") ) {
 
 	
 
-
+;showing the main progam
 gui Outbounder:+AlwaysOnTop
-Gui, Outbounder: Show, w270 h150 x%posx% y%posy% ,Outbounder Helper
+Gui, Outbounder: Show, w270 h180 x%posx% y%posy% ,Outbounder Helper
+Gui, Outbounder: Add, Text, section y10 x280,%The_VersionName%
+
 return
+;-----------------------------------------------
 OutboundersButtonClose:
 {
     MsgBox, 4, , Do you want to close dialogue? (Press YES or NO)
@@ -216,8 +222,9 @@ Movs:
                
                 
                 GuiControl, Hide, Sub
-                GuiControl, Move, Cls, y50
-                GuiControl, Move, Settings, y50 x10
+                GuiControl, Move, Cls, y50 
+                GuiControl, Move, Settings, y50 
+                GuiControl, hide, ok
                 GuiControl, hide, Clear
                 
                 ;when update is a thing not yet
@@ -291,80 +298,8 @@ Movs:
         Gui, Show, Autosize, Outbounder Helper
         return
         }
-
-        if ( Temp = 3 ) 
-            {
-                
-                ;Hiding the relocation Template
-                GuiControl,Hide, ReloCustName
-                GuiControl,Hide, ReloNewAddress
-                GuiControl,Hide, ReloOlderAddress
-                
-            
-                
-                GuiControl,Hide, ReloCustNameTitle
-                GuiControl,Hide, ReloNewAddressTitle
-                GuiControl,Hide, ReloOlderAddressTitle
-
-                
-                
-                GuiControl,Hide, ReloHasFetch
-                GuiControl,Hide, ReloHasMoblies
-                GuiControl,Hide, ReloHasDisconnectingDate
-                GuiControl,Hide, ReloDiconnectionDate
-                GuiControl,Hide, ReloDateTimeConnection
-                GuiControl,Hide, ReloDateTimeDiconnect
-                GuiControl,Hide, ReloConnectionDate
-                GuiControl,Hide ,ReloHasTechAppointment
-
-                ;------------------------------
-
-
-                GuiControl,Hide, ReloCustName
-                GuiControl,Hide, ReloNewAddress
-                GuiControl,Hide, ReloOlderAddress
-                
-            
-                
-                GuiControl,Hide, ReloCustNameTitle
-                GuiControl,Hide, ReloNewAddressTitle
-                GuiControl,Hide, ReloOlderAddressTitle
-                
-
-                GuiControl,Hide, CustNameTitle
-                GuiControl,Hide, CommentTitle
-                GuiControl,Hide, HoldSale
-                GuiControl,Hide, PlansTitle
-                GuiControl,Hide, TheISPTitle
-                GuiControl,Hide, MobliesTitle
-                GuiControl,hide, MobliesWithNoInternetTitle
-                GuiControl,Hide, FetchTitle
-                GuiControl,Hide, ModemTitle
-                GuiControl,Hide, VoipTitle
-                GuiControl,Hide, MyDateTimeTitle
-                                
-                
-                
-                GuiControl, Hide, CustName
-                GuiControl, Hide, Comment
-                GuiControl, Hide, HoldSale
-                GuiControl, Hide, Plans
-                GuiControl, Hide, TheISP
-                GuiControl, Hide, Moblies
-                GuiControl, Hide, MobliesWithNoInternet
-                GuiControl, Hide, HaveInternet
-                GuiControl, Hide, Fetch
-                GuiControl, Hide, Modem
-                GuiControl, Hide, Voip
-                GuiControl, Hide, MyDateTime
-
-               
-                
-                GuiControl, Hide, Sub
-                return
-            }
         ;Taking Notes     
-        if  ( Temp = 4 )
+        if  ( Temp = 3 )
             {   
                 ;Hiding the relocation Template
                 GuiControl,Hide, ReloCustName
@@ -729,11 +664,11 @@ if ( Temp = 4 ){
         
        
         Full = %intro%`n%connectingInfo% `n%disconnectingInfo% `n%ending%
-        Gui, Relo:Add, Edit, +Wrap w400 vResults, %Full%
-        Gui, Relo:Add, Button, w105 h32 x300 yp+220 gCopy1 vCopy, Copy to Clipboard
-        Gui, Relo:Add, Text, x20 yp+180 vResultsTxt +BackgroundTrans, Press copy Copy to Clipboard, once done ctrl v into Email.
-        Gui, Relo:Add, Button, w70 h32 x320 yp-20 gClose1 , Close
-        Gui, Relo:Show, w620 h420, Results
+        Gui, result:Add, Edit, +Wrap w400 vResults, %Full%
+        Gui, result:Add, Button, w105 h32 x300 yp+220 gCopy1 vCopy, Copy to Clipboard
+        Gui, result:Add, Text, x20 yp+180 vResultsTxt +BackgroundTrans, Press copy Copy to Clipboard, once done ctrl v into Email.
+        Gui, result:Add, Button, w70 h32 x320 yp-20 gClose1 , Close
+        Gui, result:Show, w620 h420, Results
     }
     
 ;     Dear XXX,
@@ -756,15 +691,15 @@ if ( Temp = 4 ){
         theMainComment= % JEE_StrWrap(text, 50)
         Full =  %name%----------------COMMENTS----------------------------`n%theMainComment% `n---------------Aussie Broadband Quote-------- `n%plan%%Isp%%mobiles%%notInternetM%%fetch%%modem%%voip%CallBack:%Dat1%`n%keepSale% `n -----------------------------------------------------------              
         
-        Gui, notes:Add, Edit, +Wrap w780 vResults, %Full%
-        Gui, notes:Font, S8 C888888, Arial
-        Gui, notes:Add, Text, x20 y+15 vResultsTxt +BackgroundTrans, Press copy button to save to clipbord, once done ctrl v into Widesales 2.0 Outbounders section.
-        Gui, notes:Add, Button, w105 h32 x686 yp-7 gCopy1 vCopy, Copy to Clipboard
-        Gui, notes:Add, Button, w70 h32 x605 yp+0 gNotesClose1 vClose1, Close
-        GuiControl, notes:Focus, Copy
-        Gui, notes:Font, S8 C555555, Arial
-        gui notes:+AlwaysOnTop
-        Gui, notes:Show, w800, Results
+        Gui, result:Add, Edit, +Wrap w780 vResults, %Full%
+        Gui, result:Font, S8 C888888, Arial
+        Gui, result:Add, Text, x20 y+15 vResultsTxt +BackgroundTrans, Press copy button to save to clipbord, once done ctrl v into Widesales 2.0 Outbounders section.
+        Gui, result:Add, Button, w105 h32 x686 yp-7 gCopy1 vCopy, Copy to Clipboard
+        Gui, result:Add, Button, w70 h32 x605 yp+0 gNotesClose1 vClose1, Close
+        GuiControl, result:Focus, Copy
+        Gui, result:Font, S8 C555555, Arial
+        gui result:+AlwaysOnTop
+        Gui, result:Show, w800, Results
         return
     }    
     
@@ -810,10 +745,12 @@ SettingsClose1:
 }
 
 Copy1:
+
+msgBox, 4096, Copied, copied to clipboard
 Clipboard = %Full%
     Del = 
     Results = 
-    Gui 2:Destroy
+    Gui result:Destroy
 return
 
 OutboundersButtonClear:
