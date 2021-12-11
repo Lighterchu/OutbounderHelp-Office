@@ -293,9 +293,11 @@ Movs:
         GuiControl, Move, Cls, y335 x219
         GuiControl, Move, Clear, y335 x120
         GuiControl, Move, Settings, y335 x10
+         GuiControl, show, ok
        
 
-        Gui, Show, Autosize, Outbounder Helper
+       Gui, Show, h390 w330, Outbounder Helper
+      ;; Gui, Outbounder: Show, w270  x%posx% y%posy% ,Outbounder Helper
         return
         }
         ;Taking Notes     
@@ -545,8 +547,9 @@ if (Temp = 2) {
    
 
 }
-if ( Temp = 4 ){   
-    flag = 4
+if ( Temp = 3 ){   
+    msgBox,this is working
+    flag = 3
     GuiControlGet ,CustName
     GuiControlGet ,Comment
     GuiControlGet ,HoldSale
@@ -581,18 +584,18 @@ if ( Temp = 4 ){
         plan = Plan: %Plans%`n
     }
     if(TheISP){
-        Isp = ISP:%TheISP%`n
+        Isp = ISP: %TheISP%`n
     }if( Moblies){
         mobiles = Moblies4G:%Moblies%`n
     }if(MobliesWithNoInternet){
-        notInternetM = Moblies4G:%MobliesWithNoInternet%`n
+        notInternetM = Moblies4G: %MobliesWithNoInternet%`n
     }
     if(Fetch){
-        fetch =  fetch:%Fetch%`n
+        fetch =  fetch: %Fetch%`n
     }if(Modem){
-        modem = modem:%Modem%`n
+        modem = modem: %Modem%`n
     }if(Voip){
-        voip =  Voip:%Voip%`n
+        voip =  Voip: %Voip%`n
     }
     if(MyDateTime){
         date = %MyDateTime%
@@ -604,7 +607,21 @@ if ( Temp = 4 ){
         FormatTime, disconnect, %ReloDateTimeDiconnect%, MMMM d yyyy
         connectingInfo  = 
         disconnectingInfo = 
-        intro =Dear %ReloCustName%, `nThank you for your time today. `n As discussed with you on the phone, we have arranged the relocation of your service  from your old address at  %ReloOlderAddress% to your new address of %ReloNewAddress%.
+        intro =Dear %ReloCustName%, `nThank you for your time today.`nAs discussed with you on the phone, we have arranged the relocation of your service  from your old address at  %ReloOlderAddress% to your new address of %ReloNewAddress%. `n
+        
+        ; Dear X,
+; Thank you for your time today.
+; As discussed with you on the phone, we have arranged the relocation of your service from your old address at XXXXX to your new address of XXXXXX.
+
+; Your new service will be connected 1-5 days from the date of December 18th 2021.
+; I have arranged the closure of your previous service for December 18th 2021.
+
+; If you have any further questions, please feel free to contact us on 1300 880 905, or
+; simply reply to this email.
+; Thank you again
+
+
+        
         
         if(ReloHasTechAppointment){
             ;to make it possible to line up the text
@@ -614,17 +631,17 @@ if ( Temp = 4 ){
         }else {
             ;to make it possible to line up the text
           
-            connectingInfo =  1-5 days from the date of %connect%.
+            connectingInfo =  connected 1-5 days from the date of %connect%.
         }
 
         if(!ReloHasDisconnectingDate){
              ;to make it possible to line up the text
              
-            disconnectingInfo =  We will close off your old service up to 5 days after your new service goes live.
+            disconnectingInfo =  We will close off your old service up to 5 days after your new service goes live.`n
         }else{
              ;to make it possible to line up the text
              
-           disconnectingInfo =  I have arranged the closure of your previous service for %disconnect%
+           disconnectingInfo =  I have arranged the closure of your previous service for %disconnect%`n
         }
 
        
@@ -635,19 +652,12 @@ if ( Temp = 4 ){
         }
 
         if(ReloHasFetch){
-            ;To fix the spacing
-            if(ReloHasMoblies) {
-                
-                fetch = I have also arranged for the address of your Fetch service to be updated to your new address.
-                
-            }else {
-                 fetch = I have also arranged for the address of your Fetch service to be updated to your new address.
-            }
+            fetch = I have also arranged for the address of your Fetch service to be updated to your new address.`n `n
         }
         if(ReloCallBackToCLose){
              
             disconnectingInfo = 
-            tellCustomerToCallback = `n You will need to call us back to arrange closure of your old service when you are ready for it to close off.
+            tellCustomerToCallback = `nYou will need to call us back to arrange closure of your old service when you are ready for it to close off.`n `n
         }else{
             tellCustomerToCallback = 
         }
@@ -655,7 +665,7 @@ if ( Temp = 4 ){
         
 
         
-        ending = %moblie%%fetch%%tellCustomerToCallback% If you have any further questions, please feel free to contact us on 1300 880 905, or simply reply to this email. `nThank you again
+        ending = %moblie%%fetch%%tellCustomerToCallback%If you have any further questions, please feel free to contact us on 1300 880 905, or simply reply to this email. `nThank you again
 
         
         
@@ -665,27 +675,16 @@ if ( Temp = 4 ){
        
         Full = %intro%`n%connectingInfo% `n%disconnectingInfo% `n%ending%
         Gui, result:Add, Edit, +Wrap w400 vResults, %Full%
-        Gui, result:Add, Button, w105 h32 x300 yp+220 gCopy1 vCopy, Copy to Clipboard
-        Gui, result:Add, Text, x20 yp+180 vResultsTxt +BackgroundTrans, Press copy Copy to Clipboard, once done ctrl v into Email.
+        Gui, result:Add, Button, w105 h32 x300 yp+260 gCopy1 vCopy, Copy to Clipboard
+        Gui, result:Add, Text, x20 yp+110 vResultsTxt +BackgroundTrans, Press copy Copy to Clipboard, once done ctrl v into Email.
         Gui, result:Add, Button, w70 h32 x320 yp-20 gClose1 , Close
         Gui, result:Show, w620 h420, Results
     }
     
-;     Dear XXX,
-; Thank you for your time today.
-; As discussed with you on the phone, we have arranged the relocation of your service from your old address at XXX to your new address of XXX.
-; Your new service will be connected soon after the tech appointment OR 1-5 days from the date of XXDATE-OF-CONNECTIONXX
-; I have arranged the closure of your previous service for XXDATEXX
-; OR
-; We will close off your old service up to 5 days after your new service goes live
-; OR
-; You will need to call us back to arrange closure of your old service when you are ready for it to close off.
-; I have also arranged for the address of your *Fetch/Mobile* service to be updated to your new address.
-; If you have any further questions, please feel free to contact us on 1300 880 905, or simply reply to this email.
-; Thank you again
 
 
-    if (flag = 4) {
+
+    if (flag = 3) {
         Gui, notes:Color, CAE1ED
         FormatTime, Dat1, %MyDateTime%, MMMM d yyyy
         theMainComment= % JEE_StrWrap(text, 50)
@@ -758,11 +757,11 @@ Reload
 return
 
 NotesClose1:
-    Gui notes:Destroy
+    Gui result:Destroy
 return
 
 Close1:
-    Gui Relo:Destroy
+    Gui result:Destroy
 return
 
 
