@@ -548,7 +548,6 @@ if (Temp = 2) {
 
 }
 if ( Temp = 3 ){   
-    msgBox,this is working
     flag = 3
     GuiControlGet ,CustName
     GuiControlGet ,Comment
